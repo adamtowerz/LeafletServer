@@ -1,0 +1,3 @@
+[submodule "Leaflet"]
+	path = Leaflet
+	url = https://github.com/Zarkoix/Leaflet
