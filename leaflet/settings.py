@@ -14,15 +14,18 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WEBPACK_DIST = os.path.join(BASE_DIR, 'Leaflet', 'dist')
+
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'Leaflet', 'public'),
+    WEBPACK_DIST,
 )
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'Leaflet/public/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'Leaflet', 'dist', 'webpack-stats.json'),
+        'BUNDLE_DIR_NAME': 'static/',
+        'STATS_FILE': os.path.join(WEBPACK_DIST, 'webpack-stats.json'),
     }
 }
 
@@ -55,7 +58,6 @@ INSTALLED_APPS = [
 ]
 
 
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         #'rest_framework.permissions.IsAdminUser',
@@ -80,7 +82,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'Leaflet', 'dist'),
+            WEBPACK_DIST,
             ],
         'APP_DIRS': True,
         'OPTIONS': {
