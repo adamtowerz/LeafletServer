@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.conf.urls import url
+from django.views.generic import TemplateView
 from leaflet.users import views as user_views
 from leaflet.leaves import views as leaf_views
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -24,6 +25,7 @@ urlpatterns = [
     url(r'^users/(?P<pk>[0-9]+)/$', user_views.UserDetail.as_view()),
     url(r'^leaves/$', leaf_views.LeafList.as_view()),
     url(r'^leaves/(?P<pk>[0-9]+)/$', leaf_views.LeafDetail.as_view()),
+    url('^$', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
