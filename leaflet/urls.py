@@ -15,8 +15,6 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-#from django.conf.urls.static import static
-#from django.conf import settings
 from leaflet.users import views as user_views
 from leaflet.leaves import views as leaf_views
 from rest_framework.urlpatterns import format_suffix_patterns

@@ -14,21 +14,6 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WEBPACK_DIST = os.path.join(BASE_DIR, 'Leaflet', 'dist')
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    WEBPACK_DIST,
-)
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'static/',
-        'STATS_FILE': os.path.join(WEBPACK_DIST, 'webpack-stats.json'),
-    }
-}
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -52,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'webpack_loader',
     'leaflet.users',
     'leaflet.leaves'
 ]
@@ -81,9 +65,7 @@ ROOT_URLCONF = 'leaflet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            WEBPACK_DIST,
-            ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
