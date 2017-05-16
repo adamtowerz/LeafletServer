@@ -1,14 +1,14 @@
 # LeafletServer
 Server for Zarkoix/Leaflet
 
-Installation:
-Create virtualenv
-source virtualenv
-pip3 install django
-pip3 install cherrypy
+## Requirements
+* python3
+* (all of the Leaflet dependacies)
 
-Note: source virtualenv every time before running server
+## Installation:
+* pip3 install django
+* pip3 install django_webpack_loader
+* (note: use of a "virtualenv" is reccomended)
 
-Run server:
+## Run server:
 python3 manage.py runserver
-python3 server.py

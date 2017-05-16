@@ -14,17 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
-from leaflet.users import views as user_views
-from leaflet.leaves import views as leaf_views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^users/$', user_views.UserList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/$', user_views.UserDetail.as_view()),
-    url(r'^leaves/$', leaf_views.LeafList.as_view()),
-    url(r'^leaves/(?P<pk>[0-9]+)/$', leaf_views.LeafDetail.as_view()),
+    url(r'^leaves/', include('leaflet.leaves.urls')),
+    url(r'^users/', include('leaflet.users.urls')),
     url(r'^$', TemplateView.as_view(template_name="index.html"))
 ]
 
