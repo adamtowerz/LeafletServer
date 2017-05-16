@@ -7,7 +7,7 @@ import os
 import cherrypy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PATH = os.path.join(BASE_DIR, 'LeafletServer', 'static')
+PATH = os.path.join(BASE_DIR, 'LeafletServer', 'Leaflet', 'dist')
 print(PATH)
 
 cherrypy.config.update({
