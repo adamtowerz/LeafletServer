@@ -1,0 +1,22 @@
+#.editorconfig
+
+root = true
+
+[*]
+indent-style = tab
+indent-size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.py]
+max_line_length = 119
+
+[*.{js,css,scss,html,json}]
+indent_style = space
+indent_size = 2
+
+[**.min.js]
+indent_style = ignore
+insert_final_newline = ignore

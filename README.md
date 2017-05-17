@@ -11,8 +11,9 @@ Server for Zarkoix/Leaflet
 * (note: use of a "virtualenv" is reccomended)
 
 ## Editing:
-* use tabs, not spaces
+* use .editorconfig
 * pylint --load-plugins pylint_django
+* eslint
 
 ## Run server:
 python3 manage.py runserver
