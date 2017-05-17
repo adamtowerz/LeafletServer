@@ -1,7 +1,7 @@
 """
 This module contains the API serializers for the User app
 """
-from leaflet.users.models import User
+from LeafletServer.users.models import User
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):

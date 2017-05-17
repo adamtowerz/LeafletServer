@@ -19,8 +19,8 @@ from django.views.generic import TemplateView
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^leaves/', include('leaflet.leaves.urls')),
-    url(r'^users/', include('leaflet.users.urls')),
+    url(r'^leaves/', include('LeafletServer.leaves.urls')),
+    url(r'^users/', include('LeafletServer.users.urls')),
     url(r'^$', TemplateView.as_view(template_name="index.html"))
 ]
 

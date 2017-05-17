@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WEBPACK_DIST = os.path.join(BASE_DIR, 'Leaflet', 'dist')
+WEBPACK_DIST = os.path.join(BASE_DIR, 'LeafletClient', 'dist')
 
 STATICFILES_DIRS = (
     WEBPACK_DIST,
@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'leaflet.users',
-    'leaflet.leaves',
+    'LeafletServer.users',
+    'LeafletServer.leaves',
     'webpack_loader',
 ]
 
@@ -74,7 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-ROOT_URLCONF = 'leaflet.urls'
+ROOT_URLCONF = 'LeafletServer.urls'
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'leaflet.wsgi.application'
+WSGI_APPLICATION = 'LeafletServer.wsgi.application'
 
 
 # Database

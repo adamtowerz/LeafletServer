@@ -2,8 +2,8 @@
 Views for leaves
 """
 
-from leaflet.leaves.models import Leaf
-from leaflet.leaves.serializers import LeafSerializer
+from LeafletServer.leaves.models import Leaf
+from LeafletServer.leaves.serializers import LeafSerializer
 from rest_framework import generics
 
 class LeafList(generics.ListCreateAPIView): #pylint: disable=too-many-ancestors

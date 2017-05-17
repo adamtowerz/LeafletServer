@@ -3,7 +3,7 @@ This module contains the API serializers for the leaf model
 """
 
 from rest_framework import serializers
-from leaflet.leaves.models import Leaf, LANGUAGE_CHOICES, STYLE_CHOICES
+from LeafletServer.leaves.models import Leaf, LANGUAGE_CHOICES, STYLE_CHOICES
 
 class LeafSerializer(serializers.Serializer):
     """

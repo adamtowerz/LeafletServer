@@ -3,7 +3,7 @@ URL config for leaves
 """
 
 from django.conf.urls import url
-from leaflet.leaves import views as leaf_views
+from LeafletServer.leaves import views as leaf_views
 
 urlpatterns = [
     url(r'^$', leaf_views.LeafList.as_view()),

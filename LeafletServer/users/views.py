@@ -2,8 +2,8 @@
 Views for users
 """
 
-from leaflet.users.models import User
-from leaflet.users.serializers import UserSerializer
+from LeafletServer.users.models import User
+from LeafletServer.users.serializers import UserSerializer
 from rest_framework import generics
 
 class UserList(generics.ListCreateAPIView): #pylint: disable=too-many-ancestors

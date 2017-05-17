@@ -3,7 +3,7 @@ URL config for users
 """
 
 from django.conf.urls import url
-from leaflet.users import views as user_views
+from LeafletServer.users import views as user_views
 
 urlpatterns = [
     url(r'^$', user_views.UserList.as_view()),
