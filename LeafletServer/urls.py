@@ -21,7 +21,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^leaves/', include('LeafletServer.leaves.urls')),
     url(r'^users/', include('LeafletServer.users.urls')),
-    url(r'^$', TemplateView.as_view(template_name="index.html"))
+    url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

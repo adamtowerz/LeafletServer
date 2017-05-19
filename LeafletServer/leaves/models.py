@@ -14,8 +14,8 @@ class Leaf(models.Model):
     """
     Class for Leaves
     """
-    owner = models.ForeignKey('users.User', related_name='leaves', default='',
-                              on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name=
+                              'leaves', default='', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
     content = models.TextField()

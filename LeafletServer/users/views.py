@@ -2,18 +2,18 @@
 Views for users
 """
 
-from LeafletServer.users.models import User
+from django.contrib.auth.models import User
 from LeafletServer.users.serializers import UserSerializer
 from rest_framework import generics
 
-class UserList(generics.ListCreateAPIView):
+class UserList(generics.ListAPIView):
     """
     User List class
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserDetail(generics.RetrieveAPIView):
     """
     User Detail class
     """
