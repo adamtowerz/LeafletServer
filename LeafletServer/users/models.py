@@ -13,7 +13,7 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     plan = models.PositiveSmallIntegerField()
 
-    class Meta: # pylint: disable=too-few-public-methods
+    class Meta:
         """
         This class is the Django metadata class
         """

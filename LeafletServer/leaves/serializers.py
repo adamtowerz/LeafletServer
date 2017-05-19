@@ -10,12 +10,13 @@ class LeafSerializer(serializers.Serializer):
     Leaf Serializer class
     """
 
-    id = serializers.IntegerField(read_only=True) #pylint: disable=invalid-name
-    title = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    #content = serializers.CharField(style={'base_template': 'textarea.html'})
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(required=False, allow_blank=True,
+                                  max_length=100)
     content = serializers.CharField(required=True, allow_blank=True)
     linenos = serializers.BooleanField(required=False)
-    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
+    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES,
+                                       default='python')
     style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 
     def create(self, validated_data):

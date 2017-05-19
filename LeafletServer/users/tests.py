@@ -1,3 +1,7 @@
-from django.test import TestCase
+"""
+Tests for users module
+"""
+
+# from django.test import TestCase
 
 # Create your tests here.

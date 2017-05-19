@@ -12,7 +12,7 @@ Server for Zarkoix/Leaflet
 
 ## Editing:
 * use .editorconfig
-* pylint --load-plugins pylint_django
+* pylint (use .pylintrc)
 * eslint
 
 ## Run server:
