@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'LeafletServer.users',
     'LeafletServer.leaves',
     'webpack_loader',
@@ -58,10 +59,12 @@ INSTALLED_APPS = [
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.AllowAny',
-    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'PAGE_SIZE': 10
 }
 

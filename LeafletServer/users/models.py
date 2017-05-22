@@ -9,6 +9,18 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.conf import settings
+from rest_framework.authtoken.models import Token
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs): #pylint: disable=unused-argument
+    """
+    Creates an auth token
+    """
+    if created:
+        Token.objects.create(user=instance)
 
 class CustomUserManager(BaseUserManager):
     """

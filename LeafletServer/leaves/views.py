@@ -4,7 +4,8 @@ Views for leaves
 
 from LeafletServer.leaves.models import Leaf
 from LeafletServer.leaves.serializers import LeafSerializer
-from LeafletServer.leaves.permissions import IsOwnerOrReadOnly
+from LeafletServer.leaves.permissions import IsOwnerOrReadOnly, \
+OnlyOwnerReadWrite
 from rest_framework import generics
 from rest_framework import permissions
 
@@ -14,7 +15,7 @@ class LeafList(generics.ListCreateAPIView):
     """
     queryset = Leaf.objects.all()
     serializer_class = LeafSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """
@@ -28,5 +29,4 @@ class LeafDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Leaf.objects.all()
     serializer_class = LeafSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)
