@@ -2,7 +2,8 @@
 This module contains the API serializers for the User app
 """
 
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from LeafletServer.users.models import User
 from LeafletServer.leaves.models import Leaf
 from rest_framework import serializers
 
@@ -18,4 +19,5 @@ class UserSerializer(serializers.ModelSerializer):
         Metadata Class for Django
         """
         model = User
-        fields = ('id', 'username', 'email', 'password', 'leaves')
+        fields = ('id', 'email', 'password', 'plan', 'first_name', 'last_name'
+                  'leaves')

@@ -2,7 +2,7 @@
 Views for users
 """
 
-from django.contrib.auth.models import User
+from LeafletServer.users.models import User
 from LeafletServer.users.serializers import UserSerializer
 from rest_framework import generics
 

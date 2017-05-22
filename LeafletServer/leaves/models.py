@@ -2,6 +2,7 @@
 Models for leaves
 """
 
+from django.conf import settings
 from django.db import models
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
@@ -14,7 +15,7 @@ class Leaf(models.Model):
     """
     Class for Leaves
     """
-    owner = models.ForeignKey('auth.User', related_name=
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=
                               'leaves', default='', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
