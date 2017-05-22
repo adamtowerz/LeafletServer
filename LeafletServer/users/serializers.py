@@ -19,5 +19,5 @@ class UserSerializer(serializers.ModelSerializer):
         Metadata Class for Django
         """
         model = User
-        fields = ('id', 'email', 'password', 'plan', 'first_name', 'last_name'
+        fields = ('id', 'email', 'password', 'plan', 'first_name', 'last_name',
                   'leaves')
