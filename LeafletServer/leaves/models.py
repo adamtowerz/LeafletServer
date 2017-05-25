@@ -48,7 +48,7 @@ class Leaflet(models.Model):
     """
     Class for Leaflets
     """
-    
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves', default='', on_delete=models.CASCADE)
     class Meta:
         """
         Meta class for django
