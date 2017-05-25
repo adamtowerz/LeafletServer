@@ -8,6 +8,7 @@ Server for Zarkoix/Leaflet
 ## Installation:
 * pip3 install django
 * pip3 install django_webpack_loader
+* pip3 install python-social-auth
 * (note: use of a "virtualenv" is reccomended)
 
 ## Editing:

@@ -1,0 +1,3 @@
+{
+  "plugins": ["transform-react-jsx", "es-2015", "stage-0"],
+}

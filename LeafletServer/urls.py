@@ -15,17 +15,18 @@ Including another URLconf
 """
 
 from django.conf.urls import include, url
-from django.views.generic import TemplateView
+#from django.views.generic import TemplateView
 from rest_framework.authtoken import views as authtoken_views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^leaves/', include('LeafletServer.leaves.urls')),
     url(r'^users/', include('LeafletServer.users.urls')),
-    url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^$', include('LeafletServer.client.urls')),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
     url(r'^api-token-auth/', authtoken_views.obtain_auth_token),
+    url(r'^social/', include('social_django.urls', namespace='social')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

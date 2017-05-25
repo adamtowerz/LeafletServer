@@ -1,0 +1,35 @@
+{
+	"location": {
+		"pathname": "/leaflet",
+		"search": "",
+		"hash": "",
+		"action": "POP",
+		"key": null,
+		"query": {}
+	},
+	"leaflet": {
+		"title": "Chemistry 102",
+		"openDrawer": "false",
+		"sections": [{
+				"title": "10.3",
+				"pages": [{
+						"title": "10.3.1 Memetic Studies",
+						"isFavorited": false,
+						"leaves": [{
+							"leafType": "title",
+							"leafID": "792352a5-7327-f704-e51e-aa07cbec7d15",
+							"leafData": {
+								"showTrough": false
+							}
+						}]
+					}
+				]
+			},
+			{
+				"title": "10.4",
+				"pages": []
+			}
+		],
+		"activePage": false
+	}
+}

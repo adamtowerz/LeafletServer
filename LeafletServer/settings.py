@@ -41,6 +41,12 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.User'
 
+"""
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+"""
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,10 +58,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'social_django',
     'LeafletServer.users',
     'LeafletServer.leaves',
     'webpack_loader',
+    'react',
 ]
+
+REACT = {
+    'RENDER': True,
+    'RENDER_URL': 'http://127.0.0.1:9009/render',
+}
 
 
 REST_FRAMEWORK = {
@@ -68,6 +81,29 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'users.pipeline.save_profile',
+)
+
+GOOGLE_OAUTH2_CLIENT_ID = '820499902692-ulb668a9g0evddeog5c4hnpi5tte4cku' + \
+                          '.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'rCOjfe5j08hIT27jA1b3Benl'
+SOCIAL_AUTH_USER_MODEL = 'users.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -75,7 +111,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'LeafletServer.urls'
@@ -85,6 +122,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             WEBPACK_DIST,
+            os.path.join(BASE_DIR, 'LeafletClient', 'src', 'containers'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -93,6 +131,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },

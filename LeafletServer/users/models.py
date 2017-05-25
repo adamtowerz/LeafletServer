@@ -63,12 +63,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     plan = models.PositiveSmallIntegerField(default=1)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    username = models.CharField(_('username'), max_length=30, blank=True,
+                                unique=True)
     email = models.EmailField(_('email address'), max_length=254, unique=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
     class Meta:

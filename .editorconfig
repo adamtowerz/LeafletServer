@@ -14,7 +14,7 @@ insert_final_newline = true
 indent-style = space
 max_line_length = 80
 
-[*.{js,css,scss,html,json}]
+[*.{js,css,scss,html,json,jsx}]
 indent_style = space
 indent_size = 2
 
