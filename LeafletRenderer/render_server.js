@@ -19,10 +19,9 @@ var bodyParser = require('body-parser');
 var reactRender = require('react-render');
 
 // Ensure support for loading files that contain ES6+7 & JSX
-// require('babel-core/register');
-require("babel-core").transform("code", {
-  presets: ["stage-0", "react", "es2015"],
-  plugins: ["transform-runtime"]
+require('babel-register')({
+    presets: ['es2015', 'react', 'stage-0'],
+    plugins: ['transform-runtime']
 });
 
 var ADDRESS = argv.address;

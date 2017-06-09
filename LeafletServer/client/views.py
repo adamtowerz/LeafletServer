@@ -23,7 +23,7 @@ class ReactRender(TemplateView):
             state = myfile.read().replace('\n', '').replace('\t', '')
         state = dict(json.loads(state))
         print(state)
-        rendered = render_component(AppContainer, {"foo" : "bar"})
+        rendered = render_component(AppContainer, state)
         print(rendered)
         #return HttpResponse(rendered)
         return HttpResponse("hello")

@@ -37,15 +37,15 @@ SECRET_KEY = 'aau*xs#2!(s)-ic6^s+b10ic0r9uv(x8*&dbxv@fsxw-a*@u#c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.User'
 
-"""
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
-"""
 
 # Application definition
 
