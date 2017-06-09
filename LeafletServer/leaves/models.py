@@ -6,18 +6,42 @@ from django.conf import settings
 from django.db import models
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
+import json
 
 LEXERS = [item for item in get_all_lexers() if item[1]]
 LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted((item, item) for item in get_all_styles())
     
-
+class Leaflet(models.Model):
+    """
+    Class for Leaflets
+    """
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves', default='', on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank = True, default='')
+    leaflet_id = models.BigIntegerField()
+    
+class Section(models.Model):
+    """
+    Class for Sections
+    """
+    leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank = True, default='')
+    section_id = models.BigIntegerField()
+    
+class Page(models.Model):
+    """
+    Class for Pages
+    """
+    section = models.ForeignKey(Section, on_delete = models.CASCADE)
+    title = models.CharField(max_length=100, blank = True, default='')
+    is_favorite = models.BooleanField(default=False)
+    page_id = models.BigIntegerField()
+    
 class Leaf(models.Model):
     """
     Class for Leaves
     """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=
-                              'leaves', default='', on_delete=models.CASCADE)
+    page = models.ForeignKey(Section, on_delete = models.CASCADE)
     leaf_type = models.PositiveSmallIntegerField() 
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
@@ -34,24 +58,10 @@ class Leaf(models.Model):
     write_access[] = models.IntegerField()
     """
     
-class Page(models.Model):
-    """
-    Class for Pages
-    """
-    
-class Section(models.Model):
-    """
-    Class for Sections
-    """
 
-class Leaflet(models.Model):
-    """
-    Class for Leaflets
-    """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves', default='', on_delete=models.CASCADE)
+       
     class Meta:
         """
         Meta class for django
         """
-        ordering = ('created',)
         
