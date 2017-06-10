@@ -45,3 +45,14 @@ class LeafSerializer(serializers.Serializer):
         model = Leaf
         fields = ('id', 'title', 'content', 'linenos', 'language', 'style',
                   'owner')
+
+"""
+class LeafSerializer(serializers.ModelSerializer):
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = Leaf
+        fields = ('id', 'title', 'content', 'linenos', 'language', 'style',
+                  'owner')
+"""
