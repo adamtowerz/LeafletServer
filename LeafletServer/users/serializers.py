@@ -4,15 +4,16 @@ This module contains the API serializers for the User app
 
 #from django.contrib.auth.models import User
 from LeafletServer.users.models import User
-from LeafletServer.leaves.models import Leaf
+from LeafletServer.notebooks.models import Notebook
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
     """
     Serializer for users
     """
-    leaves = serializers.PrimaryKeyRelatedField(many=True,
-                                                queryset=Leaf.objects.all())
+    notebooks = serializers.PrimaryKeyRelatedField(many=True,
+                                                   queryset=Notebook.objects.
+                                                   all())
 
     class Meta:
         """

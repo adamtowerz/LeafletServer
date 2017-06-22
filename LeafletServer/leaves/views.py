@@ -15,7 +15,7 @@ class LeafList(generics.ListCreateAPIView):
     """
     queryset = Leaf.objects.all()
     serializer_class = LeafSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)
 
     def perform_create(self, serializer):
         """

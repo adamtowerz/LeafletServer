@@ -54,9 +54,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'LeafletServer.users',
     'LeafletServer.leaves',
-    'LeafletServer.pages',
-    'LeafletServer.sections',
     'LeafletServer.leaflets',
+    'LeafletServer.sections',
+    'LeafletServer.notebooks',
     'webpack_loader',
 ]
 

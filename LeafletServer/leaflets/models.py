@@ -1,17 +1,17 @@
 """
-Models for leaflets
+Models for Leaflets
 """
 
 from django.conf import settings
 from django.db import models
-
-# Create your models here.
+from LeafletServer.sections.models import Section
 
 class Leaflet(models.Model):
     """
-    Class for Leaflets
+    Class for Leaflet
     """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaflets',
-                              default='', on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, default='')
-    leaflet_id = models.BigIntegerField()
+    is_favorite = models.BooleanField(default=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaflets',
+                              on_delete=models.CASCADE)
