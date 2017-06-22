@@ -4,8 +4,8 @@ Views for leaves
 
 from LeafletServer.leaves.models import Leaf
 from LeafletServer.leaves.serializers import LeafSerializer
-from LeafletServer.leaves.permissions import IsOwnerOrReadOnly, \
-OnlyOwnerReadWrite
+#from LeafletServer.main.permissions import IsOwnerOrReadOnly
+from LeafletServer.main.permissions import OnlyOwnerReadWrite
 from rest_framework import generics
 from rest_framework import permissions
 

@@ -1,2 +1,2 @@
-.virtualenv
+.env
 db.sqlite3

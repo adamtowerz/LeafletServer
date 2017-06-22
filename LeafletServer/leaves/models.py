@@ -3,6 +3,7 @@ Models for leaves
 """
 
 from django.db import models
+from LeafletServer.settings import AUTH_USER_MODEL
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
 from LeafletServer.pages.models import Page
@@ -26,6 +27,8 @@ class Leaf(models.Model):
                                 max_length=100)
     style = models.CharField(choices=STYLE_CHOICES, default='friendly',
                              max_length=100)
+    owner = models.ForeignKey(AUTH_USER_MODEL, related_name='leaves',
+                              on_delete=models.CASCADE)
     """
     tryna get array input for id numbers that have edit/comment/read access to
     leaf
