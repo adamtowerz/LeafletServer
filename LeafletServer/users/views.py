@@ -2,18 +2,25 @@
 Views for users
 """
 
-from LeafletServer.users.models import User
+# from django.views.generic import DetailView
 from LeafletServer.users.serializers import UserSerializer
-from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
+"""
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+"""
 
-class UserDetail(generics.RetrieveAPIView):
+class UserDetail(APIView):
     """
-    User Detail class
+    User Detail view
     """
-    lookup_field = 'email'
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+
+    def get(self, request): # pylint: disable=no-self-use
+        """
+        Get details for logged in user
+        """
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
