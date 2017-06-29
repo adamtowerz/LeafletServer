@@ -52,6 +52,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     'LeafletServer.users',
     'LeafletServer.leaves',
     'LeafletServer.leaflets',
@@ -59,6 +64,8 @@ INSTALLED_APPS = [
     'LeafletServer.notebooks',
     'webpack_loader',
 ]
+
+SITE_ID = 1
 
 
 REST_FRAMEWORK = {
