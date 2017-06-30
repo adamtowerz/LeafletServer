@@ -4,10 +4,7 @@ Views for Leaflets
 
 from LeafletServer.leaflets.models import Leaflet
 from LeafletServer.leaflets.serializers import LeafletSerializer
-#from LeafletServer.main.permissions import IsOwnerOrReadOnly
-from LeafletServer.main.permissions import OnlyOwnerReadWrite
 from rest_framework import generics
-from rest_framework import permissions
 
 class LeafletList(generics.ListCreateAPIView):
     """
@@ -15,7 +12,12 @@ class LeafletList(generics.ListCreateAPIView):
     """
     queryset = Leaflet.objects.all()
     serializer_class = LeafletSerializer
-    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)
+
+    def get_queryset(self):
+        """
+        gets queryset
+        """
+        return Leaflet.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         """
@@ -29,4 +31,3 @@ class LeafletDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Leaflet.objects.all()
     serializer_class = LeafletSerializer
-    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)

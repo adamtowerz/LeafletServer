@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^notebooks/', include('LeafletServer.notebooks.urls')),
     url(r'^sections/', include('LeafletServer.sections.urls')),
+    url(r'^leaflets/', include('LeafletServer.leaflets.urls')),
     url(r'^leaves/', include('LeafletServer.leaves.urls')),
 ]
 
