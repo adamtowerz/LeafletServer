@@ -13,13 +13,15 @@ class NotebookList(generics.ListCreateAPIView):
     """
     Notebook List class
     """
-    queryset = Notebook.objects.all()
     serializer_class = NotebookSerializer
-    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)
+
+    def get_queryset(self):
+        #return Notebook.objects.all().get(owner=self.request.user)
+        return Notebook.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         """
-        Adds user to Leaves
+        Adds user to Notebook
         """
         serializer.save(owner=self.request.user)
 
@@ -29,4 +31,3 @@ class NotebookDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Notebook.objects.all()
     serializer_class = NotebookSerializer
-    permission_classes = (permissions.IsAuthenticated, OnlyOwnerReadWrite)

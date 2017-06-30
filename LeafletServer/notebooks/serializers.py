@@ -10,7 +10,8 @@ class NotebookSerializer(serializers.ModelSerializer):
     Notebook Serializer class
     """
     owner = serializers.ReadOnlyField(source='owner.username')
+    sections = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Notebook
-        fields = ('id', 'title', 'owner')
+        fields = ('id', 'title', 'owner', 'sections')

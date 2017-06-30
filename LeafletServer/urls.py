@@ -19,14 +19,13 @@ from django.views.generic import TemplateView
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^leaves/', include('LeafletServer.leaves.urls')),
-    url(r'^rest-auth/user/', include('LeafletServer.users.urls')),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
-    #url(r'^api-auth/', include('rest_framework.urls',
-    #                           namespace='rest_framework')),
     url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/user/', include('LeafletServer.users.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-    #url(r'^accounts/profile/', include('LeafletServer.users.urls')),
+    url(r'^notebooks/', include('LeafletServer.notebooks.urls')),
+    url(r'^sections/', include('LeafletServer.sections.urls')),
+    url(r'^leaves/', include('LeafletServer.leaves.urls')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
