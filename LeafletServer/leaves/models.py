@@ -17,7 +17,8 @@ class Leaf(models.Model):
     """
     Class for Leaves
     """
-    leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE)
+    leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE,
+                                related_name='leaves')
     leaf_type = models.PositiveSmallIntegerField()
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
@@ -41,3 +42,4 @@ class Leaf(models.Model):
         """
         Meta class for django
         """
+        ordering = ['title']

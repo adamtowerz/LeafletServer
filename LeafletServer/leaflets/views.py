@@ -10,7 +10,6 @@ class LeafletList(generics.ListCreateAPIView):
     """
     Leaflet List class
     """
-    queryset = Leaflet.objects.all()
     serializer_class = LeafletSerializer
 
     def get_queryset(self):
@@ -29,5 +28,10 @@ class LeafletDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Leaflet Detail class
     """
-    queryset = Leaflet.objects.all()
     serializer_class = LeafletSerializer
+
+    def get_queryset(self):
+        """
+        gets queryset
+        """
+        return Leaflet.objects.filter(owner=self.request.user)

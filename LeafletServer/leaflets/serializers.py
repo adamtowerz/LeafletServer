@@ -20,10 +20,11 @@ class LeafletSerializer(serializers.ModelSerializer):
             queryset=Section.objects.filter(owner=request.user))
 
     owner = serializers.ReadOnlyField(source='owner.username')
+    leaves = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         """
         Meta class
         """
         model = Leaflet
-        fields = ('id', 'section', 'title', 'is_favorite', 'owner')
+        fields = ('id', 'section', 'leaves', 'title', 'is_favorite', 'owner')
