@@ -8,12 +8,16 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = false
 
-[*.py]
+[*.{py,kv}]
 indent-style = space
 indent_size = 4
 max_line_length = 80
 
-[*.{js,css,scss,html,json,jsx,md}]
+[*.md]
+indent-style = tab
+indent_size = 4
+
+[*.{js,css,scss,html,json,jsx}]
 indent-style = space
 indent_size = 2
 
