@@ -126,17 +126,17 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 5,
-		"title": "hellochanged",
-		"owner": "isaaclo123",
-		"sections": [
-			5,
-			4
-		]
-	}
-	```
+		```json
+		{
+			"id": 5,
+			"title": "hellochanged",
+			"owner": "isaaclo123",
+			"sections": [
+				5,
+				4
+			]
+		}
+		```
 
 #### PATCH
 * Changes a notebook
@@ -149,16 +149,16 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 5,
-		"title": "hellochangedagain",
-		"owner": "isaaclo123",
-		"sections": [
-			5,
-			4
-		]
-	}
+		```json
+		{
+			"id": 5,
+			"title": "hellochangedagain",
+			"owner": "isaaclo123",
+			"sections": [
+				5,
+				4
+			]
+		}
 		```
 
 ### Sections
@@ -170,53 +170,53 @@ python3 manage.py runserver
 	* *Input*
 		* N/A
     * *Output*
-	```json
-	{
-		"count": 3,
-		"next": null,
-			"previous": null,
-			"results": [
-				{
-					"id": 5,
-					"notebook": 5,
-					"title": "",
-					"owner": "isaaclo123",
-					"leaflets": []
-				},
-				{
-					"id": 4,
-					"notebook": 5,
-					"title": "2",
-					"owner": "isaaclo123",
-					"leaflets": [
-						5
-					]
-				},
-				{
-					"id": 2,
-					"notebook": 2,
-					"title": "test",
-					"owner": "isaaclo123",
-					"leaflets": []
-				}
-			]
-	}
-        ```
+		```json
+		{
+			"count": 3,
+			"next": null,
+				"previous": null,
+				"results": [
+					{
+						"id": 5,
+						"notebook": 5,
+						"title": "",
+						"owner": "isaaclo123",
+						"leaflets": []
+					},
+					{
+						"id": 4,
+						"notebook": 5,
+						"title": "2",
+						"owner": "isaaclo123",
+						"leaflets": [
+							5
+						]
+					},
+					{
+						"id": 2,
+						"notebook": 2,
+						"title": "test",
+						"owner": "isaaclo123",
+						"leaflets": []
+					}
+				]
+		}
+		```
 * Detail
 	* Obtains details of a specific Section
 	* http://LEAFLETSERVER_URL/sections/ **ID** /
 	* *Input*
 		* http://LEAFLETSERVER_URL/sections/5/
 	* *Output*
-	```json
-	{
-		"id": 5,
-		"notebook": 5,
-		"title": "",
-		"owner": "isaaclo123",
-		"leaflets": []
-	}
-        ```
+		```json
+		{
+			"id": 5,
+			"notebook": 5,
+			"title": "",
+			"owner": "isaaclo123",
+			"leaflets": []
+		}
+		```
 
 #### POST
 * Creates a new section
@@ -229,14 +229,14 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 9,
-		"notebook": 5,
-		"title": "asectoin",
-		"owner": "isaaclo123",
-		"leaflets": []
-	}
+		```json
+		{
+			"id": 9,
+			"notebook": 5,
+			"title": "asectoin",
+			"owner": "isaaclo123",
+			"leaflets": []
+		}
 		```
 
 #### DELETE
@@ -262,15 +262,15 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 9,
-		"notebook": 5,
-		"title": "asection",
-		"owner": "isaaclo123",
-		"leaflets": []
-	}
-	```
+		```json
+		{
+			"id": 9,
+			"notebook": 5,
+			"title": "asection",
+			"owner": "isaaclo123",
+			"leaflets": []
+		}
+		```
 
 #### PATCH
 * Changes a section
@@ -283,15 +283,15 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 9,
-		"notebook": 5,
-		"title": "asectionbetter",
-		"owner": "isaaclo123",
-		"leaflets": []
-	}
-	```
+		```json
+		{
+			"id": 9,
+			"notebook": 5,
+			"title": "asectionbetter",
+			"owner": "isaaclo123",
+			"leaflets": []
+		}
+		```
 
 ### Leaflets
 
@@ -302,7 +302,7 @@ python3 manage.py runserver
     * *Input*
 		* N/A
     * *Output*
-	```json
+		```json
 		{
 			"count": 3,
 			"next": null,
@@ -336,25 +336,25 @@ python3 manage.py runserver
 				}
 			]
 		}
-	```
+		```
 * Detail
 	* Obtains details of a specific Leaflet
 	* http://LEAFLETSERVER_URL/leaflets/ **ID** /
     * *Input*
 		* http://LEAFLETSERVER_URL/leaflets/5/
     * *Output*
-	```json
-	{
-		"id": 5,
-		"section": 4,
-		"leaves": [
-			3
-		],
-		"title": "testy",
-		"is_favorite": true,
-		"owner": "isaaclo123"
-	}
-	```
+		```json
+		{
+			"id": 5,
+			"section": 4,
+			"leaves": [
+				3
+			],
+			"title": "testy",
+			"is_favorite": true,
+			"owner": "isaaclo123"
+		}
+		```
 
 #### POST
 * Creates a new leaflet
@@ -368,16 +368,16 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 10,
-		"section": 9,
-		"leaves": [],
-		"title": "testing",
-		"is_favorite": true,
-		"owner": "isaaclo123"
-	}
-	```
+		```json
+		{
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testing",
+			"is_favorite": true,
+			"owner": "isaaclo123"
+		}
+		```
 
 #### DELETE
 * Deletes a leaflet
@@ -403,15 +403,15 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 10,
-		"section": 9,
-		"leaves": [],
-		"title": "testingchange",
-		"is_favorite": true,
-		"owner": "isaaclo123"
-	}
+		```json
+		{
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testingchange",
+			"is_favorite": true,
+			"owner": "isaaclo123"
+		}
 		```
 
 #### PATCH
@@ -424,16 +424,16 @@ python3 manage.py runserver
 		}
 		```
 	* *Output*
-	```json
-	{
-		"id": 10,
-		"section": 9,
-		"leaves": [],
-		"title": "testingchangenow",
-		"is_favorite": true,
-		"owner": "isaaclo123"
-	}
-	```
+		```json
+		{
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testingchangenow",
+			"is_favorite": true,
+			"owner": "isaaclo123"
+		}
+		```
 
 ### Leaves
 **COMING SOON!**
