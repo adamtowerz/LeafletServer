@@ -48,8 +48,8 @@ python3 manage.py runserver
 					"title": "hello",
 					"owner": "isaaclo123",
 					"sections": [
-							5,
-							4
+						5,
+						4
 					]
 				},
 				{
@@ -120,8 +120,8 @@ python3 manage.py runserver
 			"title": "hellochanged",
 			"owner": "isaaclo123",
 			"sections": [
-					5,
-					4
+				5,
+				4
 			]
 		}
 		```
@@ -132,8 +132,8 @@ python3 manage.py runserver
 			"title": "hellochanged",
 			"owner": "isaaclo123",
 			"sections": [
-					5,
-					4
+				5,
+				4
 			]
 		}
 		```
@@ -155,8 +155,8 @@ python3 manage.py runserver
 			"title": "hellochangedagain",
 			"owner": "isaaclo123",
 			"sections": [
-					5,
-					4
+				5,
+				4
 			]
 		}
 		```
@@ -177,29 +177,29 @@ python3 manage.py runserver
 				"previous": null,
 				"results": [
 					{
-							"id": 5,
-							"notebook": 5,
-							"title": "",
-							"owner": "isaaclo123",
-							"leaflets": []
+						"id": 5,
+						"notebook": 5,
+						"title": "",
+						"owner": "isaaclo123",
+						"leaflets": []
 					},
 					{
-							"id": 4,
-							"notebook": 5,
-							"title": "2",
-							"owner": "isaaclo123",
-							"leaflets": [
-									5
-							]
+						"id": 4,
+						"notebook": 5,
+						"title": "2",
+						"owner": "isaaclo123",
+						"leaflets": [
+							5
+						]
 					},
 					{
-							"id": 2,
-							"notebook": 2,
-							"title": "test",
-							"owner": "isaaclo123",
-							"leaflets": []
+						"id": 2,
+						"notebook": 2,
+						"title": "test",
+						"owner": "isaaclo123",
+						"leaflets": []
 					}
-			]
+				]
 		}
         ```
 * Detail
@@ -279,17 +279,17 @@ python3 manage.py runserver
 		* http://LEAFLETSERVER_URL/sections/9/
 		```json
 		{
-				"title": "asectionbetter",
+			"title": "asectionbetter"
 		}
 		```
 	* *Output*
 		```json
 		{
-				"id": 9,
-				"notebook": 5,
-				"title": "asectionbetter",
-				"owner": "isaaclo123",
-				"leaflets": []
+			"id": 9,
+			"notebook": 5,
+			"title": "asectionbetter",
+			"owner": "isaaclo123",
+			"leaflets": []
 		}
 		```
 
@@ -308,32 +308,32 @@ python3 manage.py runserver
 				"next": null,
 				"previous": null,
 				"results": [
-						{
-								"id": 6,
-								"section": 5,
-								"leaves": [],
-								"title": "New",
-								"is_favorite": true,
-								"owner": "isaaclo123"
-						},
-						{
-								"id": 7,
-								"section": 5,
-								"leaves": [],
-								"title": "New",
-								"is_favorite": true,
-								"owner": "isaaclo123"
-						},
-						{
-								"id": 5,
-								"section": 4,
-								"leaves": [
-										3
-								],
-								"title": "testy",
-								"is_favorite": true,
-								"owner": "isaaclo123"
-						}
+					{
+						"id": 6,
+						"section": 5,
+						"leaves": [],
+						"title": "New",
+						"is_favorite": true,
+						"owner": "isaaclo123"
+					},
+					{
+						"id": 7,
+						"section": 5,
+						"leaves": [],
+						"title": "New",
+						"is_favorite": true,
+						"owner": "isaaclo123"
+					},
+					{
+						"id": 5,
+						"section": 4,
+						"leaves": [
+							3
+						],
+						"title": "testy",
+						"is_favorite": true,
+						"owner": "isaaclo123"
+					}
 				]
 			}
 		```
@@ -345,14 +345,14 @@ python3 manage.py runserver
     * *Output*
 		```json
 		{
-				"id": 5,
-				"section": 4,
-				"leaves": [
-						3
-				],
-				"title": "testy",
-				"is_favorite": true,
-				"owner": "isaaclo123"
+			"id": 5,
+			"section": 4,
+			"leaves": [
+				3
+			],
+			"title": "testy",
+			"is_favorite": true,
+			"owner": "isaaclo123"
 		}
 		```
 
@@ -370,12 +370,12 @@ python3 manage.py runserver
 	* *Output*
 		```json
 				{
-						"id": 10,
-						"section": 9,
-						"leaves": [],
-						"title": "testing",
-						"is_favorite": true,
-						"owner": "isaaclo123"
+					"id": 10,
+					"section": 9,
+					"leaves": [],
+					"title": "testing",
+					"is_favorite": true,
+					"owner": "isaaclo123"
 				}
 		```
 
@@ -394,23 +394,23 @@ python3 manage.py runserver
 		* http://LEAFLETSERVER_URL/leaflets/9/
 		```json
 		{
-				"id": 10,
-				"section": 9,
-				"leaves": [],
-				"title": "testingchange",
-				"is_favorite": true,
-				"owner": "isaaclo123"
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testingchange",
+			"is_favorite": true,
+			"owner": "isaaclo123"
 		}
 		```
   * *Output*
 		```json
 		{
-				"id": 10,
-				"section": 9,
-				"leaves": [],
-				"title": "testingchange",
-				"is_favorite": true,
-				"owner": "isaaclo123"
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testingchange",
+			"is_favorite": true,
+			"owner": "isaaclo123"
 		}
 		```
 
@@ -426,12 +426,12 @@ python3 manage.py runserver
 	* *Output*
 		```json
 		{
-				"id": 10,
-				"section": 9,
-				"leaves": [],
-				"title": "testingchangenow",
-				"is_favorite": true,
-				"owner": "isaaclo123"
+			"id": 10,
+			"section": 9,
+			"leaves": [],
+			"title": "testingchangenow",
+			"is_favorite": true,
+			"owner": "isaaclo123"
 		}
 		```
 
