@@ -48,22 +48,33 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
+
     'rest_auth',
-    'django.contrib.sites',
+    'rest_auth.registration',
+
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    'LeafletServer.google_login',
+
     'LeafletServer.users',
     'LeafletServer.leaves',
     'LeafletServer.leaflets',
     'LeafletServer.sections',
     'LeafletServer.notebooks',
     'LeafletServer.main',
+
+    'LeafletServer.editing',
     'webpack_loader',
+    'channels',
 ]
 
 SITE_ID = 1

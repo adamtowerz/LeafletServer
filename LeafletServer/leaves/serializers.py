@@ -24,4 +24,4 @@ class LeafSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leaf
         fields = ('id', 'leaflet', 'leaf_type', 'created', 'title', 'content',
-                  'linenos', 'language', 'style', 'owner')
+                  'owner')

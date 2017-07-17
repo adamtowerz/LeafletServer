@@ -19,13 +19,6 @@ class Leaf(models.Model):
     content = JSONField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves',
                               on_delete=models.CASCADE)
-    """
-    tryna get array input for id numbers that have edit/comment/read access to
-    leaf
-    edit_access[] = models.IntegerField()
-    comment_access[] = models.IntegerField()
-    write_access[] = models.IntegerField()
-    """
 
     class Meta:
         """

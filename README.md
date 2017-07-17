@@ -11,7 +11,7 @@ Server for Zarkoix/Leaflet
 3. Install the latest version of python 3.*.*
 	* (distro specific)
 4. Install required dependencies
-	* cat requirements.txt | xargs -n | pip3 install
+	* pip3 install -r requirements.txt
 
 ## Conventions:
 * Python
@@ -294,7 +294,6 @@ python3 manage.py runserver
 		```
 
 ### Leaflets
-
 #### GET
 * List
 	* Obtains a list of the user's Leaflets
@@ -355,6 +354,7 @@ python3 manage.py runserver
 			"owner": "isaaclo123"
 		}
 		```
+
 
 #### POST
 * Creates a new leaflet
@@ -436,4 +436,148 @@ python3 manage.py runserver
 		```
 
 ### Leaves
-**COMING SOON!**
+
+#### GET
+* List
+	* Obtains a list of the user's Leaves
+	* http://LEAFLETSERVER_URL/leaves/
+    * *Input*
+		* N/A
+    * *Output*
+		```json
+		{
+			"count": 2,
+			"next": null,
+			"previous": null,
+			"results": [
+				{
+					"id": 1,
+					"leaflet": 1,
+					"leaf_type": "code type",
+					"created": "2017-07-15T09:10:50.845539Z",
+					"title": "The Code",
+					"content": {
+						"json": "testy"
+					},
+					"owner": "isaaclo123"
+				},
+				{
+					"id": 2,
+					"leaflet": 1,
+					"leaf_type": "code type 2",
+					"created": "2017-07-15T09:11:25.040208Z",
+					"title": "The Code 2",
+					"content": {
+						"more": "hi",
+						"json": "testing now instead of testy"
+					},
+					"owner": "isaaclo123"
+				}
+			]
+		}
+		```
+* Detail
+	* Obtains details of a specific Leaf
+	* http://LEAFLETSERVER_URL/leaves/ **ID** /
+    * *Input*
+		* http://LEAFLETSERVER_URL/leaves/2/
+    * *Output*
+		```json
+		{
+			"id": 2,
+			"leaflet": 1,
+			"leaf_type": "code type 2",
+			"created": "2017-07-15T09:11:25.040208Z",
+			"title": "The Code 2",
+			"content": {
+				"more": "hi",
+				"json": "testing now instead of testy"
+			},
+			"owner": "isaaclo123"
+		}
+		```
+
+#### POST
+* Creates a new leaf
+* http://LEAFLETSERVER_URL/leaves/
+	* *Input*
+		```json
+		{
+			"leaflet": 2,
+			"leaf_type": "newset",
+			"title": "newest",
+			"content":
+		}
+		```
+	* *Output*
+		```json
+		{
+			"id": 3,
+			"leaflet": 2,
+			"leaf_type": "newset",
+			"created": "2017-07-15T09:28:22.698147Z",
+			"title": "newest",
+			"content": {},
+			"owner": "isaaclo123"
+		}
+		```
+
+#### DELETE
+* Deletes a leaf
+* http://LEAFLETSERVER_URL/leaves/ **ID** /
+	* *Input*
+		* http://LEAFLETSERVER_URL/leaves/2/
+	* Output
+		* N/A
+
+#### PUT
+* Replaces a leaf
+* http://LEAFLETSERVER_URL/leaves/ **ID** /
+	* *Input*
+		* http://LEAFLETSERVER_URL/leaves/3/
+		```json
+		{
+			"id": 3,
+			"leaflet": 2,
+			"leaf_type": "newest, not newset",
+			"created": "2017-07-15T09:28:22.698147Z",
+			"title": "newest",
+			"content": {},
+			"owner": "isaaclo123"
+		}
+		```
+	* *Output*
+		```json
+		{
+			"id": 3,
+			"leaflet": 2,
+			"leaf_type": "newest, not newset",
+			"created": "2017-07-15T09:28:22.698147Z",
+			"title": "newest",
+			"content": {},
+			"owner": "isaaclo123"
+		}
+		```
+
+#### PATCH
+* Changes a leaf
+	* *Input*
+		* http://LEAFLETSERVER_URL/leaves/3/
+		```json
+		{
+			"leaf_type": "newest correct",
+		}
+		```
+	* *Output*
+		```json
+		{
+			"id": 3,
+			"leaflet": 2,
+			"leaf_type": "newest correct",
+			"created": "2017-07-15T09:28:22.698147Z",
+			"title": "newest",
+			"content": {},
+			"owner": "isaaclo123"
+		}
+		```
+
