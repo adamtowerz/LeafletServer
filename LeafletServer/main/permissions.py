@@ -25,4 +25,11 @@ class OnlyOwnerReadWrite(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Write permissions are only allowed to the owner of the snippet.
-        return obj.owner == request.user
+        if obj.owner == request.user:
+            return True
+        """
+        elif request.user in obj.sharing
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        """

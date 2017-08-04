@@ -20,8 +20,15 @@ class LeafSerializer(serializers.ModelSerializer):
             queryset=Leaflet.objects.filter(owner=request.user))
 
     owner = serializers.ReadOnlyField(source='owner.username')
+    sharing = serializers.SerializerMethodField()
 
     class Meta:
         model = Leaf
         fields = ('id', 'leaflet', 'leaf_type', 'created', 'title', 'content',
-                  'owner')
+                  'owner', 'sharing')
+
+    def get_sharing(self, obj): #pylint:disable=no-self-use
+        """
+        gets 'sharing' dict from Notebook
+        """
+        return obj.leaflet.section.notebook.sharing

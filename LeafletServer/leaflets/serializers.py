@@ -21,10 +21,18 @@ class LeafletSerializer(serializers.ModelSerializer):
 
     owner = serializers.ReadOnlyField(source='owner.username')
     leaves = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    sharing = serializers.SerializerMethodField()
 
     class Meta:
         """
         Meta class
         """
         model = Leaflet
-        fields = ('id', 'section', 'leaves', 'title', 'is_favorite', 'owner')
+        fields = ('id', 'section', 'leaves', 'title', 'is_favorite', 'owner',
+                  'sharing')
+
+    def get_sharing(self, obj): #pylint:disable=no-self-use
+        """
+        gets 'sharing' dict from Section (Notebook for now)
+        """
+        return obj.section.notebook.sharing

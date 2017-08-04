@@ -4,6 +4,6 @@ routes websockets for editing
 
 from channels.routing import route, include
 
-routing = [
-    include('LeafletServer.editing.routing', path=r'^/editing'),
+channel_routing = [
+    include('LeafletServer.editing.routing.channel_routing', path=r'^/editing'),
 ]

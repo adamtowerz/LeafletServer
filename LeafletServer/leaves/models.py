@@ -4,7 +4,7 @@ Models for leaves
 
 from django.db import models
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import ArrayField, JSONField
 from LeafletServer.leaflets.models import Leaflet
 
 class Leaf(models.Model):
@@ -19,6 +19,7 @@ class Leaf(models.Model):
     content = JSONField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves',
                               on_delete=models.CASCADE)
+    #sharing = ArrayField(ArrayField(models.IntegerField()))
 
     class Meta:
         """

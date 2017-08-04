@@ -44,6 +44,10 @@ AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
+    'webpack_loader',
+    'channels',
+    'django.contrib.postgres',
+    #
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,18 +55,18 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    #
     'rest_framework',
     'rest_framework.authtoken',
-
+    #
     'rest_auth',
     'rest_auth.registration',
-
+    #
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
+    #
     'LeafletServer.google_login',
 
     'LeafletServer.users',
@@ -71,10 +75,8 @@ INSTALLED_APPS = [
     'LeafletServer.sections',
     'LeafletServer.notebooks',
     'LeafletServer.main',
-
+    #
     'LeafletServer.editing',
-    'webpack_loader',
-    'channels',
 ]
 
 SITE_ID = 1
@@ -185,3 +187,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/bundles/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
