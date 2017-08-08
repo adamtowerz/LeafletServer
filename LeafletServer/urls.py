@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from LeafletServer.google_login.views import GoogleLogin
+from LeafletServer.facebook_login.views import FacebookLogin
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
@@ -24,6 +25,8 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^rest-auth/google/$', GoogleLogin.as_view(), name='google_login'),
+    url(r'^rest-auth/facebook/$', FacebookLogin.as_view(),
+        name='facebook_login'),
     url(r'^notebooks/', include('LeafletServer.notebooks.urls')),
     url(r'^sections/', include('LeafletServer.sections.urls')),
     url(r'^leaflets/', include('LeafletServer.leaflets.urls')),

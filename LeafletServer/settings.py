@@ -66,8 +66,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     #
     'LeafletServer.google_login',
+    'LeafletServer.facebook_login',
 
     'LeafletServer.users',
     'LeafletServer.leaves',
