@@ -14,14 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
+from django.contrib import admin
+from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from LeafletServer.google_login.views import GoogleLogin
 from LeafletServer.facebook_login.views import FacebookLogin
 from rest_framework.urlpatterns import format_suffix_patterns
 
+admin.autodiscover()
+
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^rest-auth/google/$', GoogleLogin.as_view(), name='google_login'),
@@ -31,6 +37,7 @@ urlpatterns = [
     url(r'^sections/', include('LeafletServer.sections.urls')),
     url(r'^leaflets/', include('LeafletServer.leaflets.urls')),
     url(r'^leaves/', include('LeafletServer.leaves.urls')),
-]
+    url(r'^admin/', include(admin.site.urls)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
