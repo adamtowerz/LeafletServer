@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #
+    'graphene_django',
+    #
     'rest_framework',
     'rest_framework.authtoken',
     #
@@ -66,19 +68,19 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
+    #'allauth.socialaccount.providers.facebook',
     #
     'LeafletServer.google_login',
-    'LeafletServer.facebook_login',
+    #'LeafletServer.facebook_login',
 
     'LeafletServer.users',
-    'LeafletServer.leaves',
-    'LeafletServer.leaflets',
-    'LeafletServer.sections',
+    #'LeafletServer.leaves',
+    #'LeafletServer.leaflets',
+    #'LeafletServer.sections',
     'LeafletServer.notebooks',
-    'LeafletServer.main',
+    #'LeafletServer.main',
     #
-    'LeafletServer.editing',
+    #'LeafletServer.editing',
 ]
 
 SITE_ID = 1
@@ -86,12 +88,16 @@ SITE_ID = 1
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-        'LeafletServer.main.permissions.OnlyOwnerReadWrite',
+        'LeafletServer.permissions.OnlyOwnerReadWrite',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
     'PAGE_SIZE': 10
+}
+
+GRAPHENE = {
+    'SCHEMA': 'LeafletServer.schema.schema'
 }
 
 MIDDLEWARE = [

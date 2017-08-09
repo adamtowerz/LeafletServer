@@ -22,22 +22,20 @@ from django.views.generic import TemplateView
 from LeafletServer.google_login.views import GoogleLogin
 #from LeafletServer.facebook_login.views import FacebookLogin
 from rest_framework.urlpatterns import format_suffix_patterns
+from graphene_django.views import GraphQLView
 
 admin.autodiscover()
 
 urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
     #url(r'^accounts/', include('allauth.urls')),
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/registration/', include('rest_auth.registration.urls')),
     url(r'^auth/google/$', GoogleLogin.as_view(), name='google_login'),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
     #url(r'^rest-auth/facebook/$', FacebookLogin.as_view(),
     #    name='facebook_login'),
-    url(r'^notebooks/', include('LeafletServer.notebooks.urls')),
-    url(r'^sections/', include('LeafletServer.sections.urls')),
-    url(r'^leaflets/', include('LeafletServer.leaflets.urls')),
-    url(r'^leaves/', include('LeafletServer.leaves.urls')),
-    url(r'^admin/', include(admin.site.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
