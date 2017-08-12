@@ -1,0 +1,44 @@
+type Query {
+
+  type user {
+    id: Int!
+    firstName: String
+    lastName: String
+    username: String!
+    email: String!
+    #picture: String
+  }
+
+  type notebook {
+    title: String
+		owner: User // this is a User object
+		sections: [sections]
+		#sharing: (hstore dict)
+  }
+
+  type section(id=Int, title=String) {
+    title: String
+    leaflets: [leaflets]
+		owner: User // this is a User object
+		#sharing: (hstore dict)
+  }
+
+  type leaflet(id=Int, title=String) {
+    title: String!
+    owner: profile
+    #lastEditedBy: profile
+    #lastEditedTime: Int
+    #color: String
+    leaves: [leaves]
+		#sharing: (hstore dict)
+  }
+
+  type leaf(id=Int, title=String) {
+    id: Int!
+		leaf_type: String!
+		created: (date)
+		title: String!
+		content: (jsonfield)
+		owner: User //user object
+  }
+}

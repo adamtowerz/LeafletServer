@@ -56,7 +56,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #
+    'graphene',
     'graphene_django',
+    'jwt_auth',
     #
     'rest_framework',
     'rest_framework.authtoken',
@@ -91,10 +93,14 @@ REST_FRAMEWORK = {
         'LeafletServer.permissions.OnlyOwnerReadWrite',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
     'PAGE_SIZE': 10
 }
+
+REST_USE_JWT = True
 
 GRAPHENE = {
     'SCHEMA': 'LeafletServer.schema.schema'

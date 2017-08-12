@@ -19,12 +19,39 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 from LeafletServer.google_login.views import GoogleLogin
 #from LeafletServer.facebook_login.views import FacebookLogin
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.authentication import get_authorization_header
 from graphene_django.views import GraphQLView
+from jwt_auth.mixins import JSONWebTokenAuthMixin
 
 admin.autodiscover()
+
+class OptionalJWTMixin(JSONWebTokenAuthMixin):
+    """
+    Optional JWT Mixin
+    """
+    def dispatch(self, request, *args, **kwargs):
+        auth = get_authorization_header(request)
+        print(auth)
+        if auth:
+            return super(OptionalJWTMixin, self).dispatch(request, *args,
+                                                          **kwargs)
+        return super(JSONWebTokenAuthMixin, self).dispatch(request, *args,
+                                                           **kwargs)
+
+class AuthGraphQLView(OptionalJWTMixin, GraphQLView):
+    """
+    Auth Graph QL
+    """
+    pass
+
+urlpatterns = [
+    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view())),
+    url(r'^graphiql', include('django_graphiql.urls')),
+]
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -33,9 +60,8 @@ urlpatterns = [
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/registration/', include('rest_auth.registration.urls')),
     url(r'^auth/google/$', GoogleLogin.as_view(), name='google_login'),
-    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
-    #url(r'^rest-auth/facebook/$', FacebookLogin.as_view(),
-    #    name='facebook_login'),
+    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view())),
+    url(r'^graphiql', include('django_graphiql.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
