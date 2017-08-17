@@ -154,3 +154,7 @@ class Query(graphene.AbstractType):
             return obj.objects.get(title=title)
 
         return None
+
+class Mutation(graphene.ObjectType):
+# not done
+    pass

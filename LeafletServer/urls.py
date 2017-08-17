@@ -26,42 +26,26 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authentication import get_authorization_header
 from graphene_django.views import GraphQLView
 from jwt_auth.mixins import JSONWebTokenAuthMixin
+from rest_framework_jwt.views import verify_jwt_token, obtain_jwt_token
 
 admin.autodiscover()
 
-class OptionalJWTMixin(JSONWebTokenAuthMixin):
+class AuthGraphQLView(JSONWebTokenAuthMixin, GraphQLView):
     """
-    Optional JWT Mixin
-    """
-    def dispatch(self, request, *args, **kwargs):
-        auth = get_authorization_header(request)
-        print(auth)
-        if auth:
-            return super(OptionalJWTMixin, self).dispatch(request, *args,
-                                                          **kwargs)
-        return super(JSONWebTokenAuthMixin, self).dispatch(request, *args,
-                                                           **kwargs)
-
-class AuthGraphQLView(OptionalJWTMixin, GraphQLView):
-    """
-    Auth Graph QL
+    Auth GraphQL View
     """
     pass
 
 urlpatterns = [
-    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view())),
-    url(r'^graphiql', include('django_graphiql.urls')),
-]
-
-urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^api-token-verify/', verify_jwt_token),
+    url(r'^api-token-auth/', obtain_jwt_token),
     #url(r'^accounts/', include('allauth.urls')),
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/registration/', include('rest_auth.registration.urls')),
     url(r'^auth/google/$', GoogleLogin.as_view(), name='google_login'),
-    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view())),
-    url(r'^graphiql', include('django_graphiql.urls')),
+    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view(graphiql=True))),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)

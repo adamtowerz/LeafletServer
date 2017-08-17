@@ -11,4 +11,10 @@ class Query(LeafletServer.notebooks.schema.Query, graphene.ObjectType):
     """
     pass
 
+class Mutation(LeafletServer.notebooks.schema.Mutation, graphene.ObjectType):
+    """
+    This class inherits notebooks' schema
+    """
+    pass
+
 schema = graphene.Schema(query=Query)
