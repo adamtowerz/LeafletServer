@@ -4,7 +4,10 @@ Schema for Notebooks
 
 import graphene
 from graphene_django.types import DjangoObjectType
+from graphene_django.rest_framework.mutation import SerializerMutation
 from LeafletServer.notebooks.models import Notebook, Section, Leaflet, Leaf
+from LeafletServer.notebooks.serializers import NotebookSerializer, \
+    SectionSerializer, LeafletSerializer, LeafSerializer
 
 class GetModel:
     """
@@ -155,6 +158,24 @@ class Query(graphene.AbstractType):
 
         return None
 
+class NotebookMutation(SerializerMutation):
+    class Meta:
+        serializer_class = NotebookSerializer
+
+class SectionMutation(SerializerMutation):
+    class Meta:
+        serializer_class = SectionSerializer
+
+class LeafletMutation(SerializerMutation):
+    class Meta:
+        serializer_class = LeafletSerializer
+
+class LeafMutation(SerializerMutation):
+    class Meta:
+        serializer_class = LeafSerializer
+
 class Mutation(graphene.ObjectType):
-# not done
-    pass
+    edit_notebook = NotebookMutation.Field()
+    edit_section = SectionMutation.Field()
+    edit_leaflet = LeafletMutation.Field()
+    edit_leaf = LeafMutation.Field()
