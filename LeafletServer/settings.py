@@ -45,7 +45,7 @@ AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
     'webpack_loader',
-    'channels',
+    #'channels',
     'django.contrib.postgres',
     #
     'django.contrib.admin',

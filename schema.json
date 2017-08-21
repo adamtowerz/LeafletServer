@@ -1,44 +1,34 @@
 type Query {
 
-  type user {
-    id: Int!
-    firstName: String
-    lastName: String
-    username: String!
-    email: String!
-    #picture: String
-  }
-
-  type notebook {
+  type notebook(id=Int, title=String) {
+    id: Int //read only
     title: String
-		owner: User // this is a User object
-		sections: [sections]
-		#sharing: (hstore dict)
+		owner: User // this is a User object read-only
+		sections: [sections] //read only
+		sharing: (hstore dict) // currently defunct
   }
 
   type section(id=Int, title=String) {
+    id: Int //read only
     title: String
-    leaflets: [leaflets]
-		owner: User // this is a User object
-		#sharing: (hstore dict)
+    leaflets: [leaflets] //read only
+		owner: User // this is a User object, read only
   }
 
   type leaflet(id=Int, title=String) {
-    title: String!
-    owner: profile
-    #lastEditedBy: profile
-    #lastEditedTime: Int
-    #color: String
-    leaves: [leaves]
-		#sharing: (hstore dict)
+    id: Int //read only
+    title: String
+    owner: User //user object, read only
+    leaves: [leaves] //read only
   }
 
   type leaf(id=Int, title=String) {
-    id: Int!
+    id: Int //read only
 		leaf_type: String!
-		created: (date)
-		title: String!
+		created: (date) //read only
+		title: String
 		content: (jsonfield)
-		owner: User //user object
+		owner: User //user object, Read only
   }
+
 }

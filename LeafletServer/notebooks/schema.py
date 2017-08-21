@@ -4,31 +4,10 @@ Schema for Notebooks
 
 import graphene
 from graphene_django.types import DjangoObjectType
-from graphene_django.rest_framework.mutation import SerializerMutation
+#from graphene_django.rest_framework.mutation import SerializerMutation
 from LeafletServer.notebooks.models import Notebook, Section, Leaflet, Leaf
 from LeafletServer.notebooks.serializers import NotebookSerializer, \
     SectionSerializer, LeafletSerializer, LeafSerializer
-
-class GetModel:
-    """
-    Class for Model Types
-    """
-    @staticmethod
-    def get_node(context, id, model):
-        """
-        gets node and checks authentication
-        """
-        print("--------------------------------------")
-        print(context)
-        print("--------------------------------------")
-        try:
-            obj = model.objects.get(pk=id)
-        except model.DoesNotExist:
-            return None
-
-        if context.user == obj.owner:
-            return obj
-        return None
 
 class NotebookType(DjangoObjectType):
     """
@@ -40,10 +19,6 @@ class NotebookType(DjangoObjectType):
         """
         model = Notebook
 
-    @classmethod
-    def get_node(cls, id, context, info):
-        GetModel.get_node(context, id, cls.__meta.model)
-
 class SectionType(DjangoObjectType):
     """
     Class for SectionType
@@ -53,10 +28,6 @@ class SectionType(DjangoObjectType):
         Meta class for SectionType
         """
         model = Section
-
-    @classmethod
-    def get_node(cls, id, context, info):
-        GetModel.get_node(context, id, cls.__meta.model)
 
 class LeafletType(DjangoObjectType):
     """
@@ -68,10 +39,6 @@ class LeafletType(DjangoObjectType):
         """
         model = Leaflet
 
-    @classmethod
-    def get_node(cls, id, context, info):
-        GetModel.get_node(context, id, cls.__meta.model)
-
 class LeafType(DjangoObjectType):
     """
     Class for LeafType
@@ -82,81 +49,109 @@ class LeafType(DjangoObjectType):
         """
         model = Leaf
 
-    @classmethod
-    def get_node(cls, id, context, info):
-        GetModel.get_node(context, id, cls.__meta.model)
-
 class Query(graphene.AbstractType):
     """
     Query for models
     """
     notebook = graphene.Field(NotebookType, id=graphene.Int(),
                               name=graphene.String())
-    all_notebooks = graphene.List(NotebookType)
+    notebooks = graphene.List(NotebookType)
 
     section = graphene.Field(SectionType, id=graphene.Int(),
                              name=graphene.String())
-    all_sections = graphene.List(SectionType)
+    sections = graphene.List(SectionType)
 
     leaflet = graphene.Field(LeafletType, id=graphene.Int(),
                              name=graphene.String())
-    all_leaflets = graphene.List(LeafletType)
+    leaflets = graphene.List(LeafletType)
 
     leaf = graphene.Field(LeafType, id=graphene.Int(),
                           name=graphene.String())
-    all_leaves = graphene.List(LeafType)
+    leaves = graphene.List(LeafType)
 
-    def resolve_all_notebooks(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+    def resolve_notebooks(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Notebooks
         """
-        return Query.resolve_all_model(context, Notebook)
+        return Query.resolve_models(context, Notebook)
 
-    def resolve_all_sections(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+    def resolve_notebook(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Notebook
+        """
+        return Query.resolve_model(args, context, Notebook)
+
+    def resolve_sections(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Sections
         """
-        return Query.resolve_all_model(context, Section)
+        return Query.resolve_models(context, Section)
 
-    def resolve_all_leaflets(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+    def resolve_section(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Section
+        """
+        return Query.resolve_model(args, context, Section)
+
+    def resolve_leaflets(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Leaflets
         """
-        return Query.resolve_all_model(context, Leaflet)
+        return Query.resolve_models(context, Leaflet)
 
-    def resolve_all_leaves(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+    def resolve_leaflet(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Leaflet
+        """
+        return Query.resolve_model(args, context, Leaflet)
+
+    def resolve_leaves(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Leaves
         """
-        return Query.resolve_all_model(context, Leaf)
+        return Query.resolve_models(context, Leaf)
+
+    def resolve_leaf(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Leaf
+        """
+        return Query.resolve_model(args, context, Leaf)
 
     @staticmethod
-    def resolve_all_model(context, obj):
+    def resolve_models(context, obj):
         """
         Retrieve list of objects
         """
-        print("--------------------------------------")
-        print(context.user)
-        print("--------------------------------------")
         if not context.user.is_authenticated():
             return obj.objects.none()
         return obj.objects.filter(owner=context.user)
 
     @staticmethod
-    def resolve_model(args, obj):
+    def resolve_model(args, context, model):
         """
-        Retrieve single obj
+        Retrieve single objects
         """
         pk = args.get('id')
         title = args.get('title')
 
         if pk is not None:
-            return obj.objects.get(pk=pk)
+            try:
+                obj = model.objects.get(pk=pk)
+            except model.DoesNotExist:
+                return None
+        elif title is not None:
+            try:
+                obj = model.objects.get(title=title)
+            except model.DoesNotExist:
+                return None
+        else:
+            return None
 
-        if title is not None:
-            return obj.objects.get(title=title)
-
+        if context.user == obj.owner:
+            return obj
         return None
+
+"""
 
 class NotebookMutation(SerializerMutation):
     class Meta:
@@ -175,7 +170,9 @@ class LeafMutation(SerializerMutation):
         serializer_class = LeafSerializer
 
 class Mutation(graphene.ObjectType):
+    #class for Mutation
     edit_notebook = NotebookMutation.Field()
     edit_section = SectionMutation.Field()
     edit_leaflet = LeafletMutation.Field()
     edit_leaf = LeafMutation.Field()
+"""

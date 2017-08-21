@@ -63,7 +63,7 @@ class Leaf(models.Model):
     leaf_type = models.TextField(max_length=50, default='text')
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
-    content = JSONField()
+    content = JSONField(blank=True, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves',
                               on_delete=models.CASCADE)
 
