@@ -1,22 +1,22 @@
 """
-Schema for Notebooks
+Schema for Leaflets
 """
 
 from graphene import AbstractType, Node
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType
-from LeafletServer.notebooks.models import Notebook
+from LeafletServer.leaflets.models import Leaflet
 from LeafletServer import auth_filter
 
-class NotebookNode(DjangoObjectType):
+class LeafletNode(DjangoObjectType):
     """
-    Notebook Node
+    Leaflet Node
     """
     class Meta:
         """
-        Meta class
+        Meta Class
         """
-        model = Notebook
+        model = Leaflet
         interfaces = (Node, )
         filter_fields = ['title']
 
@@ -25,17 +25,17 @@ class NotebookNode(DjangoObjectType):
         """
         gets node
         """
-        auth_filter.get_node(id, context, Notebook)
+        auth_filter.get_node(id, context, Leaflet)
 
 class Query(AbstractType):
     """
-    Notebook Query
+    Leaflet Query
     """
-    notebook = Node.Field(NotebookNode)
-    notebooks = DjangoFilterConnectionField(NotebookNode)
+    leaflet = Node.Field(LeafletNode)
+    leaflets = DjangoFilterConnectionField(LeafletNode)
 
-    def resolve_notebooks(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+    def resolve_leaflets(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
-        Returns list of Notebooks
+        Returns list of Leaflets
         """
-        return auth_filter.resolve_models(context, Notebook)
+        return auth_filter.resolve_models(context, Leaflet)

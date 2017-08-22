@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'jwt_auth',
     #
     'rest_framework',
-    'rest_framework.authtoken',
     #
     'rest_auth',
     'rest_auth.registration',
@@ -76,13 +75,10 @@ INSTALLED_APPS = [
     #'LeafletServer.facebook_login',
 
     'LeafletServer.users',
-    #'LeafletServer.leaves',
-    #'LeafletServer.leaflets',
-    #'LeafletServer.sections',
+    'LeafletServer.leaves',
+    'LeafletServer.leaflets',
+    'LeafletServer.sections',
     'LeafletServer.notebooks',
-    #'LeafletServer.main',
-    #
-    #'LeafletServer.editing',
 ]
 
 SITE_ID = 1
