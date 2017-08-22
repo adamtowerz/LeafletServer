@@ -2,37 +2,34 @@
 Schema for Leaflets
 """
 
-from graphene import AbstractType, Node
-from graphene_django.filter import DjangoFilterConnectionField
+import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaflets.models import Leaflet
 from LeafletServer import auth_filter
 
-class LeafletNode(DjangoObjectType):
+class LeafletType(DjangoObjectType):
     """
-    Leaflet Node
+    Class for LeafletType
     """
     class Meta:
         """
-        Meta Class
+        Meta class for LeafletType
         """
         model = Leaflet
-        interfaces = (Node, )
-        filter_fields = ['title']
 
-    @classmethod
-    def get_node(cls, id, context, info): #pylint:disable=unused-argument, redefined-builtin
-        """
-        gets node
-        """
-        auth_filter.get_node(id, context, Leaflet)
-
-class Query(AbstractType):
+class Query(graphene.AbstractType):
     """
     Leaflet Query
     """
-    leaflet = Node.Field(LeafletNode)
-    leaflets = DjangoFilterConnectionField(LeafletNode)
+    leaflet = graphene.Field(LeafletType, id=graphene.Int(),
+                             name=graphene.String())
+    leaflets = graphene.List(LeafletType)
+
+    def resolve_leaflet(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Leaflet
+        """
+        return auth_filter.resolve_model(args, context, Leaflet)
 
     def resolve_leaflets(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """

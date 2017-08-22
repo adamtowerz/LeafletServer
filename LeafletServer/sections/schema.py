@@ -2,37 +2,34 @@
 Schema for Sections
 """
 
-from graphene import AbstractType, Node
-from graphene_django.filter import DjangoFilterConnectionField
+import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.sections.models import Section
 from LeafletServer import auth_filter
 
-class SectionNode(DjangoObjectType):
+class SectionType(DjangoObjectType):
     """
-    Section Node
+    Class for SectionType
     """
     class Meta:
         """
-        Meta class
+        Meta class for SectionType
         """
         model = Section
-        interfaces = (Node, )
-        filter_fields = ['title']
 
-    @classmethod
-    def get_node(cls, id, context, info): #pylint:disable=unused-argument, redefined-builtin
-        """
-        gets node
-        """
-        auth_filter.get_node(id, context, Section)
-
-class Query(AbstractType):
+class Query(graphene.AbstractType):
     """
     Section Query
     """
-    section = Node.Field(SectionNode)
-    sections = DjangoFilterConnectionField(SectionNode)
+    section = graphene.Field(SectionType, id=graphene.Int(),
+                             name=graphene.String())
+    sections = graphene.List(SectionType)
+
+    def resolve_section(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Section
+        """
+        return auth_filter.resolve_model(args, context, Section)
 
     def resolve_sections(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """

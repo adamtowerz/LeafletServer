@@ -2,37 +2,34 @@
 Schema for Leaves
 """
 
-from graphene import AbstractType, Node
-from graphene_django.filter import DjangoFilterConnectionField
+import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaves.models import Leaf
 from LeafletServer import auth_filter
 
-class LeafNode(DjangoObjectType):
+class LeafType(DjangoObjectType):
     """
-    Leaf Node
+    Class for LeafType
     """
     class Meta:
         """
-        Meta Class
+        Meta class for LeafType
         """
         model = Leaf
-        interfaces = (Node, )
-        filter_fields = ['title']
 
-    @classmethod
-    def get_node(cls, id, context, info): #pylint:disable=unused-argument, redefined-builtin
-        """
-        gets node
-        """
-        auth_filter.get_node(id, context, Leaf)
-
-class Query(AbstractType):
+class Query(graphene.AbstractType):
     """
     Leaf Query
     """
-    leaf = Node.Field(LeafNode)
-    leaves = DjangoFilterConnectionField(LeafNode)
+    leaf = graphene.Field(LeafType, id=graphene.Int(),
+                          name=graphene.String())
+    leaves = graphene.List(LeafType)
+
+    def resolve_leaf(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Leaf
+        """
+        return auth_filter.resolve_model(args, context, Leaf)
 
     def resolve_leaves(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """

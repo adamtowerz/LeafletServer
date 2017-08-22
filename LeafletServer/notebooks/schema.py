@@ -2,37 +2,34 @@
 Schema for Notebooks
 """
 
-from graphene import AbstractType, Node
-from graphene_django.filter import DjangoFilterConnectionField
+import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
 from LeafletServer import auth_filter
 
-class NotebookNode(DjangoObjectType):
+class NotebookType(DjangoObjectType):
     """
-    Notebook Node
+    Class for NotebookType
     """
     class Meta:
         """
-        Meta class
+        Meta class for NotebookType
         """
         model = Notebook
-        interfaces = (Node, )
-        filter_fields = ['title']
 
-    @classmethod
-    def get_node(cls, id, context, info): #pylint:disable=unused-argument, redefined-builtin
-        """
-        gets node
-        """
-        auth_filter.get_node(id, context, Notebook)
-
-class Query(AbstractType):
+class Query(graphene.AbstractType):
     """
     Notebook Query
     """
-    notebook = Node.Field(NotebookNode)
-    notebooks = DjangoFilterConnectionField(NotebookNode)
+    notebook = graphene.Field(NotebookType, id=graphene.Int(),
+                              name=graphene.String())
+    notebooks = graphene.List(NotebookType)
+
+    def resolve_notebook(self, args, context, info): #pylint: disable=no-self-use,unused-argument
+        """
+        Returns Single Notebook
+        """
+        return auth_filter.resolve_model(args, context, Notebook)
 
     def resolve_notebooks(self, args, context, info): #pylint: disable=no-self-use,unused-argument
         """
