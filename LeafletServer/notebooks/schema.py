@@ -5,7 +5,9 @@ Schema for Notebooks
 import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
+from LeafletServer.notebooks.serializers import NotebookSerializer
 from LeafletServer import auth_filter
+from graphene_django.rest_framework.mutation import SerializerMutation
 
 class NotebookType(DjangoObjectType):
     """
@@ -36,3 +38,19 @@ class Query(graphene.AbstractType):
         Returns list of Notebooks
         """
         return auth_filter.resolve_models(context, Notebook)
+
+class NotebookMutation(SerializerMutation):
+    """
+    Notebook Serializer Mutation
+    """
+    class Meta:
+        """
+        Meta Class
+        """
+        serializer_class = NotebookSerializer
+
+class Mutation(graphene.ObjectType):
+    """
+    Notebook Mutation
+    """
+    edit_notebook = NotebookMutation.Field()

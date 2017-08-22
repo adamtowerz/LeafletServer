@@ -3,7 +3,6 @@ Schema for LeafletServer
 """
 
 import graphene
-from graphene_django.debug import DjangoDebug
 import LeafletServer.notebooks.schema
 import LeafletServer.sections.schema
 import LeafletServer.leaflets.schema
@@ -17,12 +16,13 @@ class Query(LeafletServer.notebooks.schema.Query,
     """
     This class inherits schema from models
     """
-    debug = graphene.Field(DjangoDebug, name='__debug')
-
-"""
-class Mutation(LeafletServer.notebooks.schema.Mutation, graphene.ObjectType):
-    #This class inherits notebooks' schema
     pass
-"""
 
-schema = graphene.Schema(query=Query)
+class Mutation(LeafletServer.notebooks.schema.Mutation,
+               graphene.ObjectType):
+    """
+    This class inherits notebooks' schema
+    """
+    pass
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
