@@ -71,8 +71,8 @@ class EditNotebook(graphene.Mutation):
         """
         Input Class
         """
-        id = graphene.Int(required=True)
-        title = graphene.String(required=True)
+        id = graphene.Int()
+        title = graphene.String()
         sharing = graphene.String()
 
     notebook = graphene.Field(lambda: NotebookType)
@@ -82,10 +82,12 @@ class EditNotebook(graphene.Mutation):
         """
         Edit and return Notebook
         """
-        auth_filter.resolve_model(args, context, Notebook)
-        if args.get('notebook'):
+        notebook = auth_filter.resolve_model(args, context, Notebook)
+        if notebook is None:
+            return None
+        if args.get('title') is not None:
             notebook.title = args.get('title')
-        if args.get('sharing'):
+        if args.get('sharing') is not None:
             notebook.sharing = ast.literal_eval(args.get('sharing'))
         notebook.save()
         return CreateNotebook(notebook=notebook)
@@ -95,3 +97,4 @@ class Mutation(graphene.AbstractType):
     Notebook Mutations
     """
     create_notebook = CreateNotebook.Field()
+    edit_notebook = EditNotebook.Field()
