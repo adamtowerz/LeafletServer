@@ -22,7 +22,7 @@ class Query(graphene.AbstractType):
     Leaf Query
     """
     leaf = graphene.Field(LeafType, id=graphene.Int(),
-                          name=graphene.String())
+                          title=graphene.String())
     leaves = graphene.List(LeafType)
 
     def resolve_leaf(self, args, context, info): #pylint: disable=no-self-use,unused-argument

@@ -22,7 +22,7 @@ class Query(graphene.AbstractType):
     Leaflet Query
     """
     leaflet = graphene.Field(LeafletType, id=graphene.Int(),
-                             name=graphene.String())
+                             title=graphene.String())
     leaflets = graphene.List(LeafletType)
 
     def resolve_leaflet(self, args, context, info): #pylint: disable=no-self-use,unused-argument

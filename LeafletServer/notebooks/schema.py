@@ -2,12 +2,11 @@
 Schema for Notebooks
 """
 
+import ast
 import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
-from LeafletServer.notebooks.serializers import NotebookSerializer
 from LeafletServer import auth_filter
-from graphene_django.rest_framework.mutation import SerializerMutation
 
 class NotebookType(DjangoObjectType):
     """
@@ -24,7 +23,7 @@ class Query(graphene.AbstractType):
     Notebook Query
     """
     notebook = graphene.Field(NotebookType, id=graphene.Int(),
-                              name=graphene.String())
+                              title=graphene.String())
     notebooks = graphene.List(NotebookType)
 
     def resolve_notebook(self, args, context, info): #pylint: disable=no-self-use,unused-argument
@@ -39,18 +38,60 @@ class Query(graphene.AbstractType):
         """
         return auth_filter.resolve_models(context, Notebook)
 
-class NotebookMutation(SerializerMutation):
+class CreateNotebook(graphene.Mutation):
     """
-    Notebook Serializer Mutation
+    Notebook Creation Mutation
     """
-    class Meta:
+    class Input:
         """
-        Meta Class
+        Input Class
         """
-        serializer_class = NotebookSerializer
+        title = graphene.String(required=True)
+        sharing = graphene.String()
 
-class Mutation(graphene.ObjectType):
+    notebook = graphene.Field(lambda: NotebookType)
+
+    @staticmethod
+    def mutate(root, args, context, info):
+        """
+        Create and return Notebook
+        """
+        notebook = Notebook(owner=context.user)
+        notebook.title = args.get('title')
+        if args.get('sharing') is not None:
+            notebook.sharing = ast.literal_eval(args.get('sharing'))
+        notebook.save()
+        return CreateNotebook(notebook=notebook)
+
+class EditNotebook(graphene.Mutation):
     """
-    Notebook Mutation
+    Notebook Edit Mutation
     """
-    edit_notebook = NotebookMutation.Field()
+    class Input:
+        """
+        Input Class
+        """
+        id = graphene.Int(required=True)
+        title = graphene.String(required=True)
+        sharing = graphene.String()
+
+    notebook = graphene.Field(lambda: NotebookType)
+
+    @staticmethod
+    def mutate(root, args, context, info):
+        """
+        Edit and return Notebook
+        """
+        auth_filter.resolve_model(args, context, Notebook)
+        if args.get('notebook'):
+            notebook.title = args.get('title')
+        if args.get('sharing'):
+            notebook.sharing = ast.literal_eval(args.get('sharing'))
+        notebook.save()
+        return CreateNotebook(notebook=notebook)
+
+class Mutation(graphene.AbstractType):
+    """
+    Notebook Mutations
+    """
+    create_notebook = CreateNotebook.Field()

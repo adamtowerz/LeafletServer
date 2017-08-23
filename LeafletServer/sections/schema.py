@@ -22,7 +22,7 @@ class Query(graphene.AbstractType):
     Section Query
     """
     section = graphene.Field(SectionType, id=graphene.Int(),
-                             name=graphene.String())
+                             title=graphene.String())
     sections = graphene.List(SectionType)
 
     def resolve_section(self, args, context, info): #pylint: disable=no-self-use,unused-argument
