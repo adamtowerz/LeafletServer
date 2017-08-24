@@ -11,14 +11,14 @@ class Leaf(models.Model):
     """
     Class for Leaves
     """
-    leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE,
-                                related_name='leaves')
-    leaf_type = models.TextField(max_length=50, default='text')
-    created = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100, blank=True, default='')
-    content = JSONField(blank=True, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='leaves',
                               on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    content = JSONField(blank=True, null=True)
+    leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE,
+                                related_name='leaves')
+    leafType = models.TextField(max_length=50, default='text')
+    title = models.CharField(max_length=100, blank=True, default='')
 
     class Meta:
         """
