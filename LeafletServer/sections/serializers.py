@@ -12,6 +12,7 @@ class SectionSerializer(serializers.ModelSerializer):
     """
     def __init__(self, *args, **kwargs):
         super(SectionSerializer, self).__init__(*args, **kwargs)
+        print(kwargs)
 
         request = kwargs['context']['request']
 

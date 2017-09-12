@@ -17,7 +17,7 @@ class Leaf(models.Model):
     content = JSONField(blank=True, null=True)
     leaflet = models.ForeignKey(Leaflet, on_delete=models.CASCADE,
                                 related_name='leaves')
-    leafType = models.TextField(max_length=50, default='text')
+    leaf_type = models.TextField(max_length=50, default='text')
     title = models.CharField(max_length=100, blank=True, default='')
 
     class Meta:

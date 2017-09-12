@@ -2,16 +2,14 @@
 Filtering methods for authentication
 """
 
-def resolve_model(args, context, model):
+def resolve_model(info, id, title, model): #pylint: disable=redefined-builtin
     """
     Retrieve single objects
     """
-    pk = args.get('id')
-    title = args.get('title')
 
-    if pk is not None:
+    if id is not None:
         try:
-            obj = model.objects.get(pk=pk)
+            obj = model.objects.get(id=id)
         except model.DoesNotExist:
             return None
     elif title is not None:
@@ -22,14 +20,14 @@ def resolve_model(args, context, model):
     else:
         return None
 
-    if context.user == obj.owner:
+    if info.context.user == obj.owner:
         return obj
     return None
 
-def resolve_models(context, obj):
+def resolve_models(info, obj):
     """
     Retrieve list of objects
     """
-    if not context.user.is_authenticated():
+    if not info.context.user.is_authenticated():
         return obj.objects.none()
-    return obj.objects.filter(owner=context.user)
+    return obj.objects.filter(owner=info.context.user)

@@ -17,4 +17,4 @@ class NotebookSerializer(serializers.ModelSerializer):
         Meta Class
         """
         model = Notebook
-        fields = ('id', 'title', 'owner', 'sections', 'sharing')
+        fields = ('id', 'title', 'owner', 'sections')
