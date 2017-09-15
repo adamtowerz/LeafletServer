@@ -51,23 +51,14 @@ def save_section(info, notebook, title, favorite=False, leaflet=None):
     """
     Saves Section
     """
-    print("-----------------\nsavesection\n----------------")
     section = Section(owner=info.context.user)
-    print(info.context.user)
     section.notebook = notebook
-    print(notebook)
     section.title = title
     section.favorite = favorite
-    print("before-save")
     section.save()
-    print("after-save")
-    print(leaflet)
 
     if isinstance(leaflet, dict):
-        print("save_leaflet")
         save_leaflet(info, section, title, favorite, leaflet.leaf)
-
-    print("after-leafletcheck")
 
     print(section)
 

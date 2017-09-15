@@ -55,6 +55,9 @@ def save_leaf(info, leaflet, title, content, leaf_type='text'):
     leaf.leaf_type = leaf_type
     leaf.content = content
     leaf.save()
+
+    print(leaf)
+
     return leaf
 
 class CreateLeaf(graphene.Mutation):

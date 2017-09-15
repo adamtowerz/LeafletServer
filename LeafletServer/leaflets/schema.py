@@ -59,6 +59,8 @@ def save_leaflet(info, section, title, favorite=False, leaf=None):
     if isinstance(leaf, dict):
         save_leaf(info, leaflet, leaf.title, leaf.content, leaf.leaf_type)
 
+    print(leaflet)
+
     return leaflet
 
 class CreateLeaflet(graphene.Mutation):
