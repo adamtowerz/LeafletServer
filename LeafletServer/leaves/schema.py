@@ -5,6 +5,7 @@ Schema for Leaves
 import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaves.models import Leaf
+from LeafletServer.leaflets.models import Leaflet
 from LeafletServer import auth_filter
 
 class LeafType(DjangoObjectType):
@@ -68,6 +69,7 @@ class CreateLeaf(graphene.Mutation):
         """
         Input Class
         """
+        leaflet_id = graphene.Int(required=True)
         title = graphene.String(required=True)
         leaf_type = graphene.String(required=True)
         content = graphene.JSONString()
@@ -75,11 +77,13 @@ class CreateLeaf(graphene.Mutation):
     leaf = graphene.Field(lambda: LeafType)
 
     @staticmethod
-    def mutate(root, info, title, leaf_type, content="", leaf=None): #pylint: disable=unused-argument
+    def mutate(root, info, leaflet_id, title, leaf_type, content="", leaf=None): #pylint:disable=unused-argument, too-many-arguments
         """
         Create and return Leaf
         """
-        return CreateLeaf(leaf=save_leaf(info, title, leaf_type, content))
+        leaflet = Leaflet.objects.get(id=leaflet_id)
+        return CreateLeaf(leaf=save_leaf(info, leaflet, title, leaf_type,
+                                         content))
 
 class Mutation(object):
     """

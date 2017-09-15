@@ -19,6 +19,9 @@ class Query(LeafletServer.notebooks.schema.Query,
     pass
 
 class Mutation(LeafletServer.notebooks.schema.Mutation,
+               LeafletServer.sections.schema.Mutation,
+               LeafletServer.leaflets.schema.Mutation,
+               LeafletServer.leaves.schema.Mutation,
                graphene.ObjectType):
     """
     This class inherits notebooks' schema

@@ -5,6 +5,7 @@ Schema for Leaflets
 import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaflets.models import Leaflet
+from LeafletServer.sections.models import Section
 from LeafletServer.leaves.schema import LeafInput, save_leaf
 from LeafletServer import auth_filter
 
@@ -71,6 +72,7 @@ class CreateLeaflet(graphene.Mutation):
         """
         Input Class
         """
+        section_id = graphene.Int(required=True)
         title = graphene.String(required=True)
         favorite = graphene.Boolean()
         leaf = LeafInput()
@@ -78,12 +80,13 @@ class CreateLeaflet(graphene.Mutation):
     leaflet = graphene.Field(lambda: LeafletType)
 
     @staticmethod
-    def mutate(root, info, title, favorite=False, leaf=None): #pylint: disable=unused-argument
+    def mutate(root, info, title, section_id, favorite=False, leaf=None): #pylint: disable=unused-argument, too-many-arguments
         """
         Create and return Leaflet
         """
-        return CreateLeaflet(leaflet=save_leaflet(info, title, favorite,
-                                                  leaf))
+        section = Section.objects.get(id=section_id)
+        return CreateLeaflet(leaflet=save_leaflet(info, section, title,
+                                                  favorite, leaf))
 
 class Mutation(object):
     """

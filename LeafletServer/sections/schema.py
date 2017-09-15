@@ -72,7 +72,7 @@ class CreateSection(graphene.Mutation):
         """
         Input Class
         """
-        notebook_id = graphene.Int()
+        notebook_id = graphene.Int(required=True)
         title = graphene.String(required=True)
         favorite = graphene.Boolean()
         leaflet = LeafletInput()
@@ -80,17 +80,14 @@ class CreateSection(graphene.Mutation):
     section = graphene.Field(lambda: SectionType)
 
     @staticmethod
-    def mutate(root, info, title, notebook_id=None, favorite=False, #pylint: disable=unused-argument, too-many-arguments
+    def mutate(root, info, notebook_id, title, favorite=False, #pylint: disable=unused-argument, too-many-arguments
                leaflet=None):
         """
         Create and return Section
         """
-        if notebook_id is not None:
-            notebook = Notebook.objects.get(id=notebook_id)
-            return CreateSection(section=save_section(info, notebook, title,
-                                                      favorite, leaflet))
-        return None
-
+        notebook = Notebook.objects.get(id=notebook_id)
+        return CreateSection(section=save_section(info, notebook, title,
+                                                  favorite, leaflet))
 
 class Mutation(object):
     """
