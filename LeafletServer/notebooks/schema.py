@@ -63,6 +63,7 @@ class CreateNotebook(graphene.Mutation):
         """
         notebook = Notebook(owner=info.context.user)
         notebook.title = title
+        print(title)
         if notebook.color is not None:
             notebook.color = color
         if notebook.location is not None:
@@ -73,10 +74,15 @@ class CreateNotebook(graphene.Mutation):
         #if sharing is not None:
         #    notebook.sharing = ast.literal_eval(args.get('sharing'))
         notebook.save()
+        print("NOTEBOOKiasdfasfasfsafsafd")
 
-        if section is not None:
+        print("-------------------")
+        print(isinstance(section.leaflet, dict))
+
+        if isinstance(section, dict):
             save_section(info, notebook, section.title, section.favorite,
                          section.leaflet)
+        print("------------------\nafter savesection\n----------------")
 
         return CreateNotebook(notebook=notebook)
 

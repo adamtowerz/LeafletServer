@@ -42,16 +42,17 @@ class LeafInput(graphene.InputObjectType):
     Leaf Input
     """
     title = graphene.String(required=True)
-    leafType = graphene.String(required=True)
+    leaf_type = graphene.String(required=True)
     content = graphene.JSONString()
 
-def save_leaf(info, title, leaftype, content):
+def save_leaf(info, leaflet, title, content, leaf_type='text'):
     """
     Saves Leaf
     """
     leaf = Leaf(owner=info.context.user)
+    leaf.leaflet = leaflet
     leaf.title = title
-    leaf.leaf_type = leaftype
+    leaf.leaf_type = leaf_type
     leaf.content = content
     leaf.save()
     return leaf
@@ -65,17 +66,17 @@ class CreateLeaf(graphene.Mutation):
         Input Class
         """
         title = graphene.String(required=True)
-        leafType = graphene.String(required=True)
+        leaf_type = graphene.String(required=True)
         content = graphene.JSONString()
 
     leaf = graphene.Field(lambda: LeafType)
 
     @staticmethod
-    def mutate(root, info, title, leaftype, content="", leaf=None): #pylint: disable=unused-argument
+    def mutate(root, info, title, leaf_type, content="", leaf=None): #pylint: disable=unused-argument
         """
         Create and return Leaf
         """
-        return CreateLeaf(leaf=save_leaf(info, title, leaftype, content))
+        return CreateLeaf(leaf=save_leaf(info, title, leaf_type, content))
 
 class Mutation(object):
     """

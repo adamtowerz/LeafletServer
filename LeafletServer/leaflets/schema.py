@@ -46,17 +46,18 @@ class LeafletInput(graphene.InputObjectType):
     favorite = graphene.Boolean()
     leaf = LeafInput()
 
-def save_leaflet(info, title, favorite, leaf):
+def save_leaflet(info, section, title, favorite=False, leaf=None):
     """
     Saves Leaflet
     """
     leaflet = Leaflet(owner=info.context.user)
+    leaflet.section = section
     leaflet.title = title
     leaflet.favorite = favorite
     leaflet.save()
 
-    if leaf is not None:
-        save_leaf(info, leaf.title, leaf.leaftype, leaf.content)
+    if isinstance(leaf, dict):
+        save_leaf(info, leaflet, leaf.title, leaf.content, leaf.leaf_type)
 
     return leaflet
 
