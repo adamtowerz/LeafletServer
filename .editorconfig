@@ -14,7 +14,7 @@ indent_size = 4
 max_line_length = 80
 
 [*.md]
-indent-style = tab
+indent-style = space
 indent_size = 4
 
 [*.{js,css,scss,html,json,jsx}]

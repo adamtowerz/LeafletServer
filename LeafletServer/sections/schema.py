@@ -27,7 +27,7 @@ class Query(object):
                              title=graphene.String())
     sections = graphene.List(SectionType)
 
-    def resolve_section(self, info, id, title): #pylint: disable=no-self-use,unused-argument,redefined-builtin
+    def resolve_section(self, info, id=None, title=None): #pylint: disable=no-self-use,unused-argument,redefined-builtin
         """
         Returns Single Section
         """

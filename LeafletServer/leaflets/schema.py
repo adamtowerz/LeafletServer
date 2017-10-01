@@ -27,7 +27,7 @@ class Query(object):
                              title=graphene.String())
     leaflets = graphene.List(LeafletType)
 
-    def resolve_leaflet(self, info, id, title): #pylint: disable=no-self-use,unused-argument,redefined-builtin
+    def resolve_leaflet(self, info, id=None, title=None): #pylint: disable=no-self-use,unused-argument,redefined-builtin
         """
         Returns Single Leaflet
         """

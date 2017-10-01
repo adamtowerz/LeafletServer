@@ -26,7 +26,7 @@ class Query(object):
                               title=graphene.String())
     notebooks = graphene.List(NotebookType)
 
-    def resolve_notebook(self, info, id, title): #pylint: disable=no-self-use,unused-argument,redefined-builtin
+    def resolve_notebook(self, info, id=None, title=None): #pylint: disable=no-self-use,unused-argument,redefined-builtin
         """
         Returns Single Notebook
         """
@@ -81,34 +81,124 @@ class CreateNotebook(graphene.Mutation):
 
         return CreateNotebook(notebook=notebook)
 
-"""
-class EditNotebook(graphene.Mutation):
-    #Notebook Edit Mutation
-    class Input:
-        #Input Class
-        id = graphene.Int()
-        title = graphene.String()
-        sharing = graphene.String()
+class EditNotebookTitle(graphene.Mutation):
+    """
+    Mutation for editing Notebook Title
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        title = graphene.String(required=True)
+        id = graphene.Int(required=True)
 
     notebook = graphene.Field(lambda: NotebookType)
 
     @staticmethod
-    def mutate(root, args, context, info):
-        #Edit and return Notebook
-        notebook = auth_filter.resolve_model(args, context, Notebook)
+    def mutate(root, info, title, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Notebook
+        """
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
         if notebook is None:
             return None
-        if args.get('title') is not None:
-            notebook.title = args.get('title')
-        if args.get('sharing') is not None:
-            notebook.sharing = ast.literal_eval(args.get('sharing'))
+        notebook.title = title
+
         notebook.save()
-        return CreateNotebook(notebook=notebook)
-"""
+        print(notebook)
+
+        return EditNotebookTitle(notebook=notebook)
+
+class EditNotebookColor(graphene.Mutation):
+    """
+    Mutation for editing Notebook Color
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        color = graphene.String(required=True)
+        id = graphene.Int(required=True)
+
+    notebook = graphene.Field(lambda: NotebookType)
+
+    @staticmethod
+    def mutate(root, info, color, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Notebook
+        """
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        if notebook is None:
+            return None
+        notebook.color = color
+
+        notebook.save()
+        print(notebook)
+
+        return EditNotebookColor(notebook=notebook)
+
+class EditNotebookLocation(graphene.Mutation):
+    """
+    Mutation for editing Notebook Location
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        location = graphene.Int(required=True)
+        id = graphene.Int(required=True)
+
+    notebook = graphene.Field(lambda: NotebookType)
+
+    @staticmethod
+    def mutate(root, info, location, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Notebook
+        """
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        if notebook is None:
+            return None
+        notebook.location = location
+
+        notebook.save()
+        print(notebook)
+
+        return EditNotebookLocation(notebook=notebook)
+
+class EditNotebookFavorite(graphene.Mutation):
+    """
+    Mutation for editing Notebook Favorite
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        favorite = graphene.Boolean(required=True)
+        id = graphene.Int(required=True)
+
+    notebook = graphene.Field(lambda: NotebookType)
+
+    @staticmethod
+    def mutate(root, info, favorite, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Notebook
+        """
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        if notebook is None:
+            return None
+        notebook.favorite = favorite
+
+        notebook.save()
+        print(notebook)
+
+        return EditNotebookFavorite(notebook=notebook)
 
 class Mutation(object):
     """
-    Notebook Mutations
+    Section Mutations
     """
     create_notebook = CreateNotebook.Field()
-    #edit_notebook = EditNotebook.Field()
+    edit_notebook_title = EditNotebookTitle.Field()
+    edit_notebook_color = EditNotebookColor.Field()
+    edit_notebook_location = EditNotebookLocation.Field()
+    edit_notebook_favorite = EditNotebookFavorite.Field()
