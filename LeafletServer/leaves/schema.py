@@ -82,8 +82,8 @@ class CreateLeaf(graphene.Mutation):
         Create and return Leaf
         """
         leaflet = Leaflet.objects.get(id=leaflet_id)
-        return CreateLeaf(leaf=save_leaf(info, leaflet, title, leaf_type,
-                                         content))
+        return CreateLeaf(leaf=save_leaf(info, leaflet, title, content,
+                                         leaf_type))
 
 class Mutation(object):
     """

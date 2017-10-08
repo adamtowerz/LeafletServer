@@ -54,6 +54,7 @@ class CreateNotebook(graphene.Mutation):
         section = SectionInput()
 
     notebook = graphene.Field(lambda: NotebookType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, title, color="", location="", favorite="False", #pylint:disable=unused-argument, too-many-arguments
@@ -78,8 +79,9 @@ class CreateNotebook(graphene.Mutation):
         if isinstance(section, dict):
             save_section(info, notebook, section.title, section.favorite,
                          section.leaflet)
+        ok = True
 
-        return CreateNotebook(notebook=notebook)
+        return CreateNotebook(notebook=notebook, ok=ok)
 
 class EditNotebookTitle(graphene.Mutation):
     """
@@ -121,6 +123,7 @@ class EditNotebookColor(graphene.Mutation):
         id = graphene.Int(required=True)
 
     notebook = graphene.Field(lambda: NotebookType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, color, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
@@ -134,8 +137,9 @@ class EditNotebookColor(graphene.Mutation):
 
         notebook.save()
         print(notebook)
+        ok = True
 
-        return EditNotebookColor(notebook=notebook)
+        return EditNotebookColor(notebook=notebook, ok=ok)
 
 class EditNotebookLocation(graphene.Mutation):
     """
@@ -149,6 +153,7 @@ class EditNotebookLocation(graphene.Mutation):
         id = graphene.Int(required=True)
 
     notebook = graphene.Field(lambda: NotebookType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, location, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
@@ -162,8 +167,9 @@ class EditNotebookLocation(graphene.Mutation):
 
         notebook.save()
         print(notebook)
+        ok = True
 
-        return EditNotebookLocation(notebook=notebook)
+        return EditNotebookLocation(notebook=notebook, ok=ok)
 
 class EditNotebookFavorite(graphene.Mutation):
     """
@@ -177,6 +183,7 @@ class EditNotebookFavorite(graphene.Mutation):
         id = graphene.Int(required=True)
 
     notebook = graphene.Field(lambda: NotebookType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, favorite, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
@@ -190,8 +197,36 @@ class EditNotebookFavorite(graphene.Mutation):
 
         notebook.save()
         print(notebook)
+        ok = True
 
-        return EditNotebookFavorite(notebook=notebook)
+        return EditNotebookFavorite(notebook=notebook, ok=ok)
+
+class DeleteNotebook(graphene.Mutation):
+    """
+    Mutation for deleting a Notebook
+    """
+
+    class Arguments:
+        """
+        Input Class
+        """
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Notebook
+        """
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        if notebook is None:
+            return None
+        notebook.delete()
+        ok = True
+
+        return DeleteNotebook(ok=ok) #pylint:disable=no-value-for-parameter
+
 
 class Mutation(object):
     """
@@ -202,3 +237,4 @@ class Mutation(object):
     edit_notebook_color = EditNotebookColor.Field()
     edit_notebook_location = EditNotebookLocation.Field()
     edit_notebook_favorite = EditNotebookFavorite.Field()
+
