@@ -81,12 +81,11 @@ class CreateSection(graphene.Mutation):
     ok = graphene.Boolean()
 
     @staticmethod
-    def mutate(root, info, notebook_id, title, favorite=False, #pylint: disable=unused-argument, too-many-arguments
-               leaflet=None):
+    def mutate(root, info, notebook_id, title, favorite=False, leaflet=None): #pylint: disable=unused-argument, too-many-arguments
         """
         Create and return Section
         """
-        notebook = helpers.resolve_model(info, id, None, Notebook)
+        notebook = helpers.resolve_model(info, notebook_id, None, Notebook)
         if notebook is None:
             return None
         ok = True

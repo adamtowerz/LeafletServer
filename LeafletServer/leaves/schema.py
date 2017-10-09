@@ -82,7 +82,7 @@ class CreateLeaf(graphene.Mutation):
         """
         Create and return Leaf
         """
-        leaflet = helpers.resolve_model(info, id, None, Leaflet)
+        leaflet = helpers.resolve_model(info, leaflet_id, None, Leaflet)
         if leaflet is None:
             return None
         ok = True

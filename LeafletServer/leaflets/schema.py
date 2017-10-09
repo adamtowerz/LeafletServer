@@ -84,7 +84,7 @@ class CreateLeaflet(graphene.Mutation):
         """
         Create and return Leaflet
         """
-        section = helpers.resolve_model(info, id, None, Section)
+        section = helpers.resolve_model(info, section_id, None, Section)
         if section is None:
             return None
         ok = True
