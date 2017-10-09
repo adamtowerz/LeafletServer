@@ -75,6 +75,7 @@ class CreateLeaf(graphene.Mutation):
         content = graphene.JSONString()
 
     leaf = graphene.Field(lambda: LeafType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, leaflet_id, title, leaf_type, content="", leaf=None): #pylint:disable=unused-argument, too-many-arguments
@@ -84,8 +85,10 @@ class CreateLeaf(graphene.Mutation):
         leaflet = helpers.resolve_model(info, id, None, Leaflet)
         if leaflet is None:
             return None
+        ok = True
+
         return CreateLeaf(leaf=save_leaf(info, leaflet, title, content,
-                                         leaf_type))
+                                         leaf_type), ok=ok)
 
 class EditLeafTitle(graphene.Mutation):
     """

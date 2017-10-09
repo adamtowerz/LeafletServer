@@ -87,8 +87,10 @@ class CreateLeaflet(graphene.Mutation):
         section = helpers.resolve_model(info, id, None, Section)
         if section is None:
             return None
+        ok = True
+
         return CreateLeaflet(leaflet=save_leaflet(info, section, title,
-                                                  favorite, leaf))
+                                                  favorite, leaf), ok=ok)
 
 class EditLeafletTitle(graphene.Mutation):
     """

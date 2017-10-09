@@ -78,6 +78,7 @@ class CreateSection(graphene.Mutation):
         leaflet = LeafletInput()
 
     section = graphene.Field(lambda: SectionType)
+    ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, notebook_id, title, favorite=False, #pylint: disable=unused-argument, too-many-arguments
@@ -88,8 +89,10 @@ class CreateSection(graphene.Mutation):
         notebook = helpers.resolve_model(info, id, None, Notebook)
         if notebook is None:
             return None
+        ok = True
+
         return CreateSection(section=save_section(info, notebook, title,
-                                                  favorite, leaflet))
+                                                  favorite, leaflet), ok=ok)
 
 class EditSectionTitle(graphene.Mutation):
     """
