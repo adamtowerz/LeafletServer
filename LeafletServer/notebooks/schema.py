@@ -6,7 +6,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
 from LeafletServer.sections.schema import SectionInput, save_section
-from LeafletServer import auth_filter, helpers
+from LeafletServer import helpers
 
 class NotebookType(DjangoObjectType):
     """
@@ -30,13 +30,13 @@ class Query(object):
         """
         Returns Single Notebook
         """
-        return auth_filter.resolve_model(info, id, title, Notebook)
+        return helpers.resolve_model(info, id, title, Notebook)
 
     def resolve_notebooks(self, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Notebooks
         """
-        return auth_filter.resolve_models(info, Notebook)
+        return helpers.resolve_models(info, Notebook)
 
 class CreateNotebook(graphene.Mutation):
     """

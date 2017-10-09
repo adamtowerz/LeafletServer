@@ -6,7 +6,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaves.models import Leaf
 from LeafletServer.leaflets.models import Leaflet
-from LeafletServer import auth_filter, helpers
+from LeafletServer import helpers
 
 class LeafType(DjangoObjectType):
     """
@@ -30,13 +30,13 @@ class Query(object):
         """
         Returns Single Leaf
         """
-        return auth_filter.resolve_model(info, id, title, Leaf)
+        return helpers.resolve_model(info, id, title, Leaf)
 
     def resolve_leaves(self, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Leaves
         """
-        return auth_filter.resolve_models(info, Leaf)
+        return helpers.resolve_models(info, Leaf)
 
 class LeafInput(graphene.InputObjectType):
     """
@@ -81,7 +81,7 @@ class CreateLeaf(graphene.Mutation):
         """
         Create and return Leaf
         """
-        leaflet = auth_filter.resolve_model(info, id, None, Leaflet)
+        leaflet = helpers.resolve_model(info, id, None, Leaflet)
         if leaflet is None:
             return None
         return CreateLeaf(leaf=save_leaf(info, leaflet, title, content,

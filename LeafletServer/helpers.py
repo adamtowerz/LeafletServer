@@ -2,9 +2,6 @@
 Custom reusable helper code
 """
 
-#import graphene
-from LeafletServer import auth_filter
-
 """
 class DeleteModel(graphene.Mutation):
     #Mutation for deleting a Model
@@ -39,11 +36,41 @@ class DeleteModel(graphene.Mutation):
         return DeleteModel(ok=ok) #pylint:disable=no-value-for-parameter
 """
 
+def resolve_model(info, id, title, model): #pylint: disable=redefined-builtin
+    """
+    Retrieve single objects
+    """
+
+    if id is not None:
+        try:
+            obj = model.objects.get(id=id)
+        except model.DoesNotExist:
+            return None
+    elif title is not None:
+        try:
+            obj = model.objects.get(title=title)
+        except model.DoesNotExist:
+            return None
+    else:
+        return None
+
+    if info.context.user == obj.owner:
+        return obj
+    return None
+
+def resolve_models(info, obj):
+    """
+    Retrieve list of objects
+    """
+    if not info.context.user.is_authenticated():
+        return obj.objects.none()
+    return obj.objects.filter(owner=info.context.user)
+
 def mutate_model(info, id, model, arg, arg_name): #pylint: disable=redefined-builtin
     """
     Mutates a model with a given argument and argument name
     """
-    obj = auth_filter.resolve_model(info, id, None, model)
+    obj = resolve_model(info, id, None, model)
     if obj is None:
         return None
     obj[arg_name] = arg
@@ -56,7 +83,7 @@ def delete_model(info, id, model): #pylint: disable=redefined-builtin
     """
     Deletes a model
     """
-    obj = auth_filter.resolve_model(info, id, None, model)
+    obj = resolve_model(info, id, None, model)
     if obj is None:
         return None
     obj.delete()

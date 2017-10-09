@@ -7,7 +7,7 @@ from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
 from LeafletServer.sections.models import Section
 from LeafletServer.leaflets.schema import LeafletInput, save_leaflet
-from LeafletServer import auth_filter, helpers
+from LeafletServer import helpers
 
 class SectionType(DjangoObjectType):
     """
@@ -31,13 +31,13 @@ class Query(object):
         """
         Returns Single Section
         """
-        return auth_filter.resolve_model(info, id, title, Section)
+        return helpers.resolve_model(info, id, title, Section)
 
     def resolve_sections(self, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Sections
         """
-        return auth_filter.resolve_models(info, Section)
+        return helpers.resolve_models(info, Section)
 
 class SectionInput(graphene.InputObjectType):
     """
@@ -85,7 +85,7 @@ class CreateSection(graphene.Mutation):
         """
         Create and return Section
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        notebook = helpers.resolve_model(info, id, None, Notebook)
         if notebook is None:
             return None
         return CreateSection(section=save_section(info, notebook, title,

@@ -7,7 +7,7 @@ from graphene_django.types import DjangoObjectType
 from LeafletServer.leaflets.models import Leaflet
 from LeafletServer.sections.models import Section
 from LeafletServer.leaves.schema import LeafInput, save_leaf
-from LeafletServer import auth_filter, helpers
+from LeafletServer import helpers
 
 class LeafletType(DjangoObjectType):
     """
@@ -31,13 +31,13 @@ class Query(object):
         """
         Returns Single Leaflet
         """
-        return auth_filter.resolve_model(info, id, title, Leaflet)
+        return helpers.resolve_model(info, id, title, Leaflet)
 
     def resolve_leaflets(self, info): #pylint: disable=no-self-use,unused-argument
         """
         Returns list of Leaflets
         """
-        return auth_filter.resolve_models(info, Leaflet)
+        return helpers.resolve_models(info, Leaflet)
 
 class LeafletInput(graphene.InputObjectType):
     """
@@ -84,7 +84,7 @@ class CreateLeaflet(graphene.Mutation):
         """
         Create and return Leaflet
         """
-        section = auth_filter.resolve_model(info, id, None, Section)
+        section = helpers.resolve_model(info, id, None, Section)
         if section is None:
             return None
         return CreateLeaflet(leaflet=save_leaflet(info, section, title,
