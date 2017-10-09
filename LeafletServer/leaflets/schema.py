@@ -7,7 +7,7 @@ from graphene_django.types import DjangoObjectType
 from LeafletServer.leaflets.models import Leaflet
 from LeafletServer.sections.models import Section
 from LeafletServer.leaves.schema import LeafInput, save_leaf
-from LeafletServer import auth_filter
+from LeafletServer import auth_filter, helpers
 
 class LeafletType(DjangoObjectType):
     """
@@ -84,12 +84,87 @@ class CreateLeaflet(graphene.Mutation):
         """
         Create and return Leaflet
         """
-        section = Section.objects.get(id=section_id)
+        section = auth_filter.resolve_model(info, id, None, Section)
+        if section is None:
+            return None
         return CreateLeaflet(leaflet=save_leaflet(info, section, title,
                                                   favorite, leaf))
+
+class EditLeafletTitle(graphene.Mutation):
+    """
+    Mutation for editing Leaflet Title
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        title = graphene.String(required=True)
+        id = graphene.Int(required=True)
+
+    leaflet = graphene.Field(lambda: LeafletType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, title, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaflet
+        """
+        leaflet = helpers.mutate_model(info, id, Leaflet, title, "title")
+        ok = True
+
+        return EditLeafletTitle(leaflet=leaflet, ok=ok)
+
+class EditLeafletFavorite(graphene.Mutation):
+    """
+    Mutation for editing Leaflet Favorite
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        favorite = graphene.Boolean(required=True)
+        id = graphene.Int(required=True)
+
+    leaflet = graphene.Field(lambda: LeafletType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, favorite, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaflet
+        """
+        leaflet = helpers.mutate_model(info, id, Leaflet, favorite, "favorite")
+        ok = True
+
+        return EditLeafletFavorite(leaflet=leaflet, ok=ok)
+
+class DeleteLeaflet(graphene.Mutation):
+    """
+    Mutation for deleting a Leaflet
+    """
+
+    class Arguments:
+        """
+        Input Class
+        """
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaflet
+        """
+        delete = helpers.delete_model(info, id, Leaflet)
+
+        return DeleteLeaflet(ok=delete) #pylint:disable=no-value-for-parameter
 
 class Mutation(object):
     """
     Leaflet Mutations
     """
     create_leaflet = CreateLeaflet.Field()
+    edit_leaflet_title = EditLeafletTitle.Field()
+    edit_leaflet_favorite = EditLeafletFavorite.Field()
+    delete_leaflet = DeleteLeaflet.Field()
