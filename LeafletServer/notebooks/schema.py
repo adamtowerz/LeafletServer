@@ -6,7 +6,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
 from LeafletServer.sections.schema import SectionInput, save_section
-from LeafletServer import auth_filter
+from LeafletServer import auth_filter, helpers
 
 class NotebookType(DjangoObjectType):
     """
@@ -101,15 +101,10 @@ class EditNotebookTitle(graphene.Mutation):
         """
         Mutate Notebook
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
-        if notebook is None:
-            return None
-        notebook.title = title
+        notebook = helpers.mutate_model(info, id, Notebook, title, "title")
+        ok = True
 
-        notebook.save()
-        print(notebook)
-
-        return EditNotebookTitle(notebook=notebook)
+        return EditNotebookTitle(notebook=notebook, ok=ok)
 
 class EditNotebookColor(graphene.Mutation):
     """
@@ -130,13 +125,7 @@ class EditNotebookColor(graphene.Mutation):
         """
         Mutate Notebook
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
-        if notebook is None:
-            return None
-        notebook.color = color
-
-        notebook.save()
-        print(notebook)
+        notebook = helpers.mutate_model(info, id, Notebook, color, "color")
         ok = True
 
         return EditNotebookColor(notebook=notebook, ok=ok)
@@ -160,13 +149,8 @@ class EditNotebookLocation(graphene.Mutation):
         """
         Mutate Notebook
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
-        if notebook is None:
-            return None
-        notebook.location = location
-
-        notebook.save()
-        print(notebook)
+        notebook = helpers.mutate_model(info, id, Notebook, location,
+                                        "location")
         ok = True
 
         return EditNotebookLocation(notebook=notebook, ok=ok)
@@ -190,13 +174,8 @@ class EditNotebookFavorite(graphene.Mutation):
         """
         Mutate Notebook
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
-        if notebook is None:
-            return None
-        notebook.favorite = favorite
-
-        notebook.save()
-        print(notebook)
+        notebook = helpers.mutate_model(info, id, Notebook, favorite,
+                                        "favorite")
         ok = True
 
         return EditNotebookFavorite(notebook=notebook, ok=ok)
@@ -219,13 +198,9 @@ class DeleteNotebook(graphene.Mutation):
         """
         Mutate Notebook
         """
-        notebook = auth_filter.resolve_model(info, id, None, Notebook)
-        if notebook is None:
-            return None
-        notebook.delete()
-        ok = True
+        delete = helpers.delete_model(info, id, Notebook)
 
-        return DeleteNotebook(ok=ok) #pylint:disable=no-value-for-parameter
+        return DeleteNotebook(ok=delete) #pylint:disable=no-value-for-parameter
 
 
 class Mutation(object):
@@ -237,4 +212,4 @@ class Mutation(object):
     edit_notebook_color = EditNotebookColor.Field()
     edit_notebook_location = EditNotebookLocation.Field()
     edit_notebook_favorite = EditNotebookFavorite.Field()
-
+    delete_notebook = DeleteNotebook.Field()

@@ -7,7 +7,7 @@ from graphene_django.types import DjangoObjectType
 from LeafletServer.notebooks.models import Notebook
 from LeafletServer.sections.models import Section
 from LeafletServer.leaflets.schema import LeafletInput, save_leaflet
-from LeafletServer import auth_filter
+from LeafletServer import auth_filter, helpers
 
 class SectionType(DjangoObjectType):
     """
@@ -85,13 +85,87 @@ class CreateSection(graphene.Mutation):
         """
         Create and return Section
         """
-        notebook = Notebook.objects.get(id=notebook_id)
+        notebook = auth_filter.resolve_model(info, id, None, Notebook)
+        if notebook is None:
+            return None
         return CreateSection(section=save_section(info, notebook, title,
                                                   favorite, leaflet))
+
+class EditSectionTitle(graphene.Mutation):
+    """
+    Mutation for editing Section Title
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        title = graphene.String(required=True)
+        id = graphene.Int(required=True)
+
+    section = graphene.Field(lambda: SectionType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, title, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Section
+        """
+        section = helpers.mutate_model(info, id, Section, title, "title")
+        ok = True
+
+        return EditSectionTitle(section=section, ok=ok)
+
+class EditSectionFavorite(graphene.Mutation):
+    """
+    Mutation for editing Section Favorite
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        favorite = graphene.Boolean(required=True)
+        id = graphene.Int(required=True)
+
+    section = graphene.Field(lambda: SectionType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, favorite, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Section
+        """
+        section = helpers.mutate_model(info, id, Section, favorite, "favorite")
+        ok = True
+
+        return EditSectionFavorite(section=section, ok=ok)
+
+class DeleteSection(graphene.Mutation):
+    """
+    Mutation for deleting a Section
+    """
+
+    class Arguments:
+        """
+        Input Class
+        """
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Section
+        """
+        delete = helpers.delete_model(info, id, Section)
+
+        return DeleteSection(ok=delete) #pylint:disable=no-value-for-parameter
 
 class Mutation(object):
     """
     Section Mutations
     """
     create_section = CreateSection.Field()
-    #edit_notebook = EditNotebook.Field()
+    edit_section_title = EditSectionTitle.Field()
+    edit_section_favorite = EditSectionFavorite.Field()
+    delete_section = DeleteSection.Field()
