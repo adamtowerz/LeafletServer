@@ -6,7 +6,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from LeafletServer.leaves.models import Leaf
 from LeafletServer.leaflets.models import Leaflet
-from LeafletServer import auth_filter
+from LeafletServer import auth_filter, helpers
 
 class LeafType(DjangoObjectType):
     """
@@ -81,12 +81,112 @@ class CreateLeaf(graphene.Mutation):
         """
         Create and return Leaf
         """
-        leaflet = Leaflet.objects.get(id=leaflet_id)
+        leaflet = auth_filter.resolve_model(info, id, None, Leaflet)
+        if leaflet is None:
+            return None
         return CreateLeaf(leaf=save_leaf(info, leaflet, title, content,
                                          leaf_type))
+
+class EditLeafTitle(graphene.Mutation):
+    """
+    Mutation for editing Leaf Title
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        title = graphene.String(required=True)
+        id = graphene.Int(required=True)
+
+    leaf = graphene.Field(lambda: LeafType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, title, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaf
+        """
+        leaf = helpers.mutate_model(info, id, Leaf, title, "title")
+        ok = True
+
+        return EditLeafTitle(leaf=leaf, ok=ok)
+
+class EditLeafType(graphene.Mutation):
+    """
+    Mutation for editing Leaf Type
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        type = graphene.String(required=True)
+        id = graphene.Int(required=True)
+
+    leaf = graphene.Field(lambda: LeafType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, type, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaf
+        """
+        leaf = helpers.mutate_model(info, id, Leaf, type, "type")
+        ok = True
+
+        return EditLeafTitle(leaf=leaf, ok=ok)
+
+class EditLeafContent(graphene.Mutation):
+    """
+    Mutation for editing Leaf Content
+    """
+    class Arguments:
+        """
+        Input Class
+        """
+        content = graphene.JSONString(required=True)
+        id = graphene.Int(required=True)
+
+    leaf = graphene.Field(lambda: LeafType)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, content, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaf
+        """
+        leaf = helpers.mutate_model(info, id, Leaf, content, "content")
+        ok = True
+
+        return EditLeafTitle(leaf=leaf, ok=ok)
+
+class DeleteLeaf(graphene.Mutation):
+    """
+    Mutation for deleting a Leaf
+    """
+
+    class Arguments:
+        """
+        Input Class
+        """
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
+        """
+        Mutate Leaf
+        """
+        delete = helpers.delete_model(info, id, Leaf)
+
+        return DeleteLeaf(ok=delete) #pylint:disable=no-value-for-parameter
 
 class Mutation(object):
     """
     Leaf Mutations
     """
     create_leaf = CreateLeaf.Field()
+    edit_leaf_title = EditLeafTitle.Field()
+    edit_leaf_type = EditLeafType.Field()
+    edit_leaf_content = EditLeafContent.Field()
+    delete_leaf = DeleteLeaf.Field()
