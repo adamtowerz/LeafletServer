@@ -6,16 +6,12 @@ Server for Zarkoix/Leaflet
 
 ### Repository
 
-*Note*: use of a *virtualenv* is recommended
-
-1. Clone the repository
-    `git clone git@github.com:Zarkoix/LeafletServer.git`
-2. Enter directory
-    `cd Leaflet Server`
-3. Install the latest version of python 3.*.*
-    `(distro specific)`
-4. Install required dependencies
-    `pip3 install -r requirements.txt`
+```bash
+git clone git@github.com:Zarkoix/LeafletServer.git
+cd LeafletServer
+# use of a virtualenv is recommended when installing python packages
+pip3 install -r requirements.txt
+```
 
 ### Set up Postgresql (dev)
 
@@ -28,9 +24,8 @@ chmod +x createdatabase.sh
 ### Create migrations and migrate models
 
 ```bash
-cd dev
-chmod +x makemigrations.sh
-./makemigrations.sh
+./manage.py makemigrations notebooks sections leaflets leaves users
+./manage.py migrate
 ```
 
 ### Create admin user
@@ -44,14 +39,13 @@ chmod +x makemigrations.sh
 
 ### Set up Google Auth (dev)
 
-* *in browser*
-* go to [http://localhost:8000/admin/](http://localhost:8000/admin/)
-* login with admin user credentials
-* click on 'sites'
-* on the site marked 'example.com'
-* change the domain and display name to 'localhost:8000'
-* click on 'home'
-* add a new social application
+1. go to [http://localhost:8000/admin/](http://localhost:8000/admin/) in browser
+2. login with admin user credentials
+3. click on 'sites'
+4. on the site marked 'example.com'
+5. change the domain and display name to 'localhost:8000'
+6. click on 'home'
+7. add a new social application
     * provider: Google
     * name: Google App
     * Client id: \$ID\$.apps.googleusercontent.com
