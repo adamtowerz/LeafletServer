@@ -99,7 +99,7 @@ Vary: Accept
 {
     "token": "$TOKEN$",
     "user": {
-        "pk": $ID,
+        "pk": $ID$,
         "username": "$USERNAME$",
         "email": "$EMAIL$",
         "first_name": "",
@@ -114,7 +114,7 @@ Vary: Accept
 
 * The graphql endpoint is located at 
   [http://localhost:8000/graphql/](http://localhost:8000/graphql/)
-* To make a graphql request, use the header `Authorization: Bearer \$TOKEN\$`
+* To make a graphql request, use the header `Authorization: Bearer $TOKEN$`
 
 #### Generate Documentation
 
