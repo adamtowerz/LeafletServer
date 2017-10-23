@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
+    <title>DeleteSection</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+</head>
+<body class="slds-scrollable--y">
+    <nav class="slds-grid slds-grid--vertical slds-col--rule-right">
+        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
+            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
+                <i class="material-icons">close</i>
+            </button>
+                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
+            <div class="slds-p-top--small">
+                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
+            </div>
+        </header>
+        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
+    <ul>
+        <li  title="Query">
+            <a href="query.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Query
+            </a>
+        </li>
+        <li  title="Mutation">
+            <a href="mutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Mutation
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
+    <ul>
+        <li  title="Boolean">
+            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Boolean
+            </a>
+        </li>
+        <li  title="DateTime">
+            <a href="datetime.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DateTime
+            </a>
+        </li>
+        <li  title="ID">
+            <a href="id.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ID
+            </a>
+        </li>
+        <li  title="Int">
+            <a href="int.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Int
+            </a>
+        </li>
+        <li  title="JSONString">
+            <a href="jsonstring.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                JSONString
+            </a>
+        </li>
+        <li  title="String">
+            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                String
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
+    <ul>
+        <li  title="__DirectiveLocation">
+            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __DirectiveLocation
+            </a>
+        </li>
+        <li  title="__TypeKind">
+            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __TypeKind
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
+    <ul>
+        <li  title="CreateLeaf">
+            <a href="createleaf.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateLeaf
+            </a>
+        </li>
+        <li  title="CreateLeaflet">
+            <a href="createleaflet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateLeaflet
+            </a>
+        </li>
+        <li  title="CreateNotebook">
+            <a href="createnotebook.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateNotebook
+            </a>
+        </li>
+        <li  title="CreateSection">
+            <a href="createsection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateSection
+            </a>
+        </li>
+        <li  title="DeleteLeaf">
+            <a href="deleteleaf.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteLeaf
+            </a>
+        </li>
+        <li  title="DeleteLeaflet">
+            <a href="deleteleaflet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteLeaflet
+            </a>
+        </li>
+        <li  title="DeleteNotebook">
+            <a href="deletenotebook.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteNotebook
+            </a>
+        </li>
+        <li class="slds-is-active" title="DeleteSection">
+            <a href="deletesection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteSection
+            </a>
+        </li>
+        <li  title="EditLeafContent">
+            <a href="editleafcontent.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditLeafContent
+            </a>
+        </li>
+        <li  title="EditLeafletFavorite">
+            <a href="editleafletfavorite.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditLeafletFavorite
+            </a>
+        </li>
+        <li  title="EditLeafletTitle">
+            <a href="editleaflettitle.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditLeafletTitle
+            </a>
+        </li>
+        <li  title="EditLeafTitle">
+            <a href="editleaftitle.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditLeafTitle
+            </a>
+        </li>
+        <li  title="EditLeafType">
+            <a href="editleaftype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditLeafType
+            </a>
+        </li>
+        <li  title="EditNotebookColor">
+            <a href="editnotebookcolor.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditNotebookColor
+            </a>
+        </li>
+        <li  title="EditNotebookFavorite">
+            <a href="editnotebookfavorite.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditNotebookFavorite
+            </a>
+        </li>
+        <li  title="EditNotebookLocation">
+            <a href="editnotebooklocation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditNotebookLocation
+            </a>
+        </li>
+        <li  title="EditNotebookTitle">
+            <a href="editnotebooktitle.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditNotebookTitle
+            </a>
+        </li>
+        <li  title="EditSectionFavorite">
+            <a href="editsectionfavorite.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditSectionFavorite
+            </a>
+        </li>
+        <li  title="EditSectionTitle">
+            <a href="editsectiontitle.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EditSectionTitle
+            </a>
+        </li>
+        <li  title="LeafletType">
+            <a href="leaflettype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LeafletType
+            </a>
+        </li>
+        <li  title="LeafType">
+            <a href="leaftype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LeafType
+            </a>
+        </li>
+        <li  title="NotebookType">
+            <a href="notebooktype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                NotebookType
+            </a>
+        </li>
+        <li  title="SectionType">
+            <a href="sectiontype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SectionType
+            </a>
+        </li>
+        <li  title="__Directive">
+            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Directive
+            </a>
+        </li>
+        <li  title="__EnumValue">
+            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __EnumValue
+            </a>
+        </li>
+        <li  title="__Field">
+            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Field
+            </a>
+        </li>
+        <li  title="__InputValue">
+            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __InputValue
+            </a>
+        </li>
+        <li  title="__Schema">
+            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Schema
+            </a>
+        </li>
+        <li  title="__Type">
+            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Type
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Input Objects</h4>
+    <ul>
+        <li  title="LeafInput">
+            <a href="leafinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LeafInput
+            </a>
+        </li>
+        <li  title="LeafletInput">
+            <a href="leafletinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LeafletInput
+            </a>
+        </li>
+        <li  title="SectionInput">
+            <a href="sectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SectionInput
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
+    <ul>
+        <li  title="include">
+            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                include
+            </a>
+        </li>
+        <li  title="skip">
+            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                skip
+            </a>
+        </li>
+    </ul>
+</div>
+        </div>
+    </nav>
+    <main><section class="title slds-theme--inverse">
+    <div class="container slds-grid">
+        <div>
+        <button class="slds-button js-toggle-navigation less-than-medium">
+            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
+            <span class="slds-text-title--caps">Types<span>
+        </button>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
+        <h1 class="slds-text-heading--large">DeleteSection</h1>
+        <div class="slds-text-body--regular"><p>Mutation for deleting a Section</p>
+</div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#graphql-schema-definition">
+                <i class="material-icons">link</i>
+            </a>
+            GraphQL Schema definition
+        </h2>
+        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">type</span> <span class="identifier">DeleteSection</span> {</li><li></li><li><span class="tab"><span class="meta">ok</span>: <a class="support type" href="boolean.doc.html">Boolean</a> </span></li><li>}</li></ul></code>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="require-by" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#require-by">
+                <i class="material-icons">link</i>
+            </a>
+            Require by
+        </h2>
+        <ul class="require-by"><li><a href="mutation.doc.html" title="Mutation - This class inherits notebooks' schema">Mutation<em>This class inherits notebooks' schema</em></a><li></ul>
+    </div>
+</section>
+<footer>
+<div class="container slds-p-around--large">
+    <p class="slds-text-align--right slds-text-title--caps">
+        Generated with <a href="https://github.com/2fd/graphdoc#readme" target="_blank">graphdoc 2.4.0</a>
+    </p>
+</div>
+</footer>
+</main>
+    <script src="./scripts/focus-active.js"></script>
+    <script src="./scripts/filter-types.js"></script>
+    <script src="./scripts/toggle-navigation.js"></script>
+</body>
