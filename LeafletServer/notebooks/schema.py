@@ -1,6 +1,4 @@
-"""
-Schema for Notebooks
-"""
+"""Schema for Notebooks"""
 
 import graphene
 from graphene_django.types import DjangoObjectType
@@ -9,43 +7,39 @@ from LeafletServer.sections.schema import SectionInput, save_section
 from LeafletServer import helpers
 
 class NotebookType(DjangoObjectType):
-    """
-    Class for NotebookType
-    """
+    """Class for NotebookType Object"""
     class Meta:
-        """
-        Meta class for NotebookType
-        """
+        """Meta class"""
         model = Notebook
 
 class Query(object):
-    """
-    Notebook Query
-    """
+    """Class for Notebook Queries"""
     notebook = graphene.Field(NotebookType, id=graphene.Int(),
                               title=graphene.String())
     notebooks = graphene.List(NotebookType)
 
     def resolve_notebook(self, info, id=None, title=None): #pylint: disable=no-self-use,unused-argument,redefined-builtin
-        """
-        Returns Single Notebook
+        """Returns Single Notebook
+
+        :id: kwarg for the id of the notebook. defaults to None
+        :title: kwarg for the title of the notebook. defaults to None
+        :returns: None or the notebook object with the specified id or title
+
         """
         return helpers.resolve_model(info, id, title, Notebook)
 
     def resolve_notebooks(self, info): #pylint: disable=no-self-use,unused-argument
-        """
-        Returns list of Notebooks
+        """Returns list of Notebooks
+
+        :returns: a list of all a user's notebooks
+
         """
         return helpers.resolve_models(info, Notebook)
 
 class CreateNotebook(graphene.Mutation):
-    """
-    Notebook Creation Mutation
-    """
+    """Notebook Creation Mutation"""
     class Arguments:
-        """
-        Input Class
-        """
+        """Arguments Class"""
         title = graphene.String(required=True)
         #sharing = graphene.String()
         color = graphene.String()
@@ -59,8 +53,20 @@ class CreateNotebook(graphene.Mutation):
     @staticmethod
     def mutate(root, info, title, color="", location="", favorite="False", #pylint:disable=unused-argument, too-many-arguments
                section=None):
-        """
-        Create and return Notebook
+        """Mutation to create and return a Notebook
+
+        :title: string representing the title of the notebook (required)
+        :color: string representing the color of the notebook
+        :location: integer representing position of the notebook in list of
+        notebooks
+        :favorite: boolean representing whether or not the notebooks is
+        favorited (required)
+        :section: object representing a section to be created.
+        :returns: a request containing a notebook object and a boolean "ok" or
+        None and and object "ok" that is also None
+
+        :TODO: make favorite optional, add sharing
+
         """
         notebook = Notebook(owner=info.context.user)
         notebook.title = title
@@ -84,13 +90,9 @@ class CreateNotebook(graphene.Mutation):
         return CreateNotebook(notebook=notebook, ok=ok)
 
 class EditNotebookTitle(graphene.Mutation):
-    """
-    Mutation for editing Notebook Title
-    """
+    """Mutation for editing Notebook Title"""
     class Arguments:
-        """
-        Input Class
-        """
+        """Arguments Class"""
         title = graphene.String(required=True)
         id = graphene.Int(required=True)
 
@@ -98,8 +100,13 @@ class EditNotebookTitle(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, title, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
-        """
-        Mutate Notebook
+        """Mutates notebook title
+
+        :title: string representing the title of the notebook.
+        :id: integer for the id of the notebook.
+        :returns: a request containing a notebook object and a boolean "ok" or
+        None and and object "ok" that is also None
+
         """
         notebook = helpers.mutate_model(info, id, Notebook, title, "title")
         ok = True
@@ -107,13 +114,9 @@ class EditNotebookTitle(graphene.Mutation):
         return EditNotebookTitle(notebook=notebook, ok=ok)
 
 class EditNotebookColor(graphene.Mutation):
-    """
-    Mutation for editing Notebook Color
-    """
+    """Mutation for editing Notebook Color"""
     class Arguments:
-        """
-        Input Class
-        """
+        """Argument Class"""
         color = graphene.String(required=True)
         id = graphene.Int(required=True)
 
@@ -122,8 +125,13 @@ class EditNotebookColor(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, color, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
-        """
-        Mutate Notebook
+        """Mutates Notebook Color
+
+        :color: string representing the color of the notebook
+        :id: integer representing the id of the notebook
+        :returns: a request containing a notebook object and a boolean "ok" or
+        None and and object "ok" that is also None
+
         """
         notebook = helpers.mutate_model(info, id, Notebook, color, "color")
         ok = True
@@ -131,13 +139,9 @@ class EditNotebookColor(graphene.Mutation):
         return EditNotebookColor(notebook=notebook, ok=ok)
 
 class EditNotebookLocation(graphene.Mutation):
-    """
-    Mutation for editing Notebook Location
-    """
+    """Mutation for editing Notebook Location"""
     class Arguments:
-        """
-        Input Class
-        """
+        """Argument Class"""
         location = graphene.Int(required=True)
         id = graphene.Int(required=True)
 
@@ -146,8 +150,14 @@ class EditNotebookLocation(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, location, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
-        """
-        Mutate Notebook
+        """Mutates Notebook Location
+
+        :location: integer representing the location of the notebook in the
+        notebook list
+        :id: integer representing the id of the notebook
+        :returns: a request containing a notebook object and a boolean "ok" or
+        None and and object "ok" that is also None
+
         """
         notebook = helpers.mutate_model(info, id, Notebook, location,
                                         "location")
@@ -156,13 +166,9 @@ class EditNotebookLocation(graphene.Mutation):
         return EditNotebookLocation(notebook=notebook, ok=ok)
 
 class EditNotebookFavorite(graphene.Mutation):
-    """
-    Mutation for editing Notebook Favorite
-    """
+    """Mutation for editing Notebook Favorite"""
     class Arguments:
-        """
-        Input Class
-        """
+        """Argument Class"""
         favorite = graphene.Boolean(required=True)
         id = graphene.Int(required=True)
 
@@ -171,8 +177,13 @@ class EditNotebookFavorite(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, favorite, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
-        """
-        Mutate Notebook
+        """Mutates Notebook Favorite
+
+        :favorite: boolean representing if a notebook has been favorited
+        :id: integer representing the id of the notebook
+        :returns: a request containing a notebook object and a boolean "ok" or
+        None and and object "ok" that is also None
+
         """
         notebook = helpers.mutate_model(info, id, Notebook, favorite,
                                         "favorite")
@@ -181,22 +192,21 @@ class EditNotebookFavorite(graphene.Mutation):
         return EditNotebookFavorite(notebook=notebook, ok=ok)
 
 class DeleteNotebook(graphene.Mutation):
-    """
-    Mutation for deleting a Notebook
-    """
+    """Mutation for deleting a Notebook"""
 
     class Arguments:
-        """
-        Input Class
-        """
+        """Argument Class"""
         id = graphene.Int(required=True)
 
     ok = graphene.Boolean()
 
     @staticmethod
     def mutate(root, info, id): #pylint:disable=unused-argument, too-many-arguments, redefined-builtin
-        """
-        Mutate Notebook
+        """Deletes notebook
+
+        :id: integer representing the id of the notebook
+        :returns: a request a boolean "ok" or an object "ok" that is None
+
         """
         delete = helpers.delete_model(info, id, Notebook)
 
@@ -204,9 +214,7 @@ class DeleteNotebook(graphene.Mutation):
 
 
 class Mutation(object):
-    """
-    Section Mutations
-    """
+    """Section Mutations"""
     create_notebook = CreateNotebook.Field()
     edit_notebook_title = EditNotebookTitle.Field()
     edit_notebook_color = EditNotebookColor.Field()

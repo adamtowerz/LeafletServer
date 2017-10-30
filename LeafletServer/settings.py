@@ -113,6 +113,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 ROOT_URLCONF = 'LeafletServer.urls'
@@ -136,7 +140,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'LeafletServer.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -195,6 +198,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+
+TEST_RUNNER = 'snapshottest.django.TestRunner'
 
 USE_I18N = True
 
