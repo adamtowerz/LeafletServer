@@ -45,7 +45,13 @@ urlpatterns = [
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/registration/', include('rest_auth.registration.urls')),
     url(r'^auth/google/$', GoogleLogin.as_view(), name='google_login'),
-    url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view(graphiql=True))),
 ] + static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += [url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view(
+        graphiql=True)))]
+else:
+    urlpatterns += [url(r'^graphql', csrf_exempt(AuthGraphQLView.as_view(
+        graphiql=False)))]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
