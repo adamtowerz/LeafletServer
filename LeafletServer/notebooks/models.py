@@ -27,4 +27,3 @@ class Notebook(models.Model):
         Meta class for django
         """
         ordering = ['title']
-
