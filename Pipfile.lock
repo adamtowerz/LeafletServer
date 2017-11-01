@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d364da6f9172f63ece4fe154da305ad6a963ab88d70c620c6ffa9ecd2689103e"
+            "sha256": "f15a36550634c2e20b154fcdfdc80f8cffd06024bbae43f57e06128d46b7c998"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -123,10 +123,10 @@
         },
         "django": {
             "hashes": [
-                "sha256:7ab6a9c798a5f9f359ee6da3677211f883fb02ef32cebe9b29751eb7a871febf",
-                "sha256:c3b42ca1efa1c0a129a9e863134cc3fe705c651dea3a04a7998019e522af0c60"
+                "sha256:6fd30e05dc9af265f7d7d10cfb0efa013e6236db0853c9f47c74c585587c5a57",
+                "sha256:abe86e67dda9897a1536a727ed57dbefb5a42b41943be3b116fe3edab4c07bb2"
             ],
-            "version": "==1.11.6"
+            "version": "==1.11.4"
         },
         "django-allauth": {
             "hashes": [
@@ -206,24 +206,21 @@
         },
         "graphene": {
             "hashes": [
-                "sha256:543392c6027f78da9a0fcc9bf678b8db7dcd2528b4193644d8f63d73fe4e8b03",
-                "sha256:d8b91565bdf3d3688b3d035b8a20768c49b2226e19bb21d280e0485d33f8e25c"
+                "sha256:36134e026ec987514b240b57e3b6a995d6aed0fc5dece0567e77d5aed0ad0ece"
             ],
-            "version": "==2.0"
+            "version": "==1.4.1"
         },
         "graphene-django": {
             "hashes": [
-                "sha256:5cabf46b59f242a533fe1df1912c87d5ad6606246937609be2e6c9086cfdf7a4",
-                "sha256:70d9358bc48c806b6a9458e8344f0a1211cd1f1ef923a092aa55e6bcacc2c3fc"
+                "sha256:6679eaa73768a760aef76e1860a4ca3273db4213f0505dc13cdfa44278e027fc"
             ],
-            "version": "==2.0.0"
+            "version": "==1.3"
         },
         "graphql-core": {
             "hashes": [
-                "sha256:539355351343dede3ecb771e0d273a1b72405cb6d64f45bb8f92ecc4d7109af0",
-                "sha256:4830699be53f9154273fa15726fc8b0c90bc22bbb8fc7c932586503b3cb9330e"
+                "sha256:63bb8593aeeadb0a53e14207b910027fe51158d017927fad87326dac806185ee"
             ],
-            "version": "==2.0"
+            "version": "==1.1"
         },
         "graphql-relay": {
             "hashes": [
@@ -316,10 +313,9 @@
         },
         "promise": {
             "hashes": [
-                "sha256:0bca4ed933e3d50e3d18fb54fc1432fa84b0564838cd093e824abcd718ab9304",
-                "sha256:95506bac89df7a495e0b8c813fd782dd1ae590decb52f95248e316c6659ca49b"
+                "sha256:f6ac7ec189bfb14ab8987f211db85fa8147fe13ca5d2a8c15926307d8948c082"
             ],
-            "version": "==2.1"
+            "version": "==2.0.2"
         },
         "psycopg2": {
             "hashes": [
@@ -405,13 +401,6 @@
                 "sha256:883ac416757eada6d3d07054ec7092ac21c7f35cb1d2cf82faf205637081f468"
             ],
             "version": "==0.8.0"
-        },
-        "rx": {
-            "hashes": [
-                "sha256:ad793d79843feba2ea25c0c01be245f3163d5d469418279d4019737b93d88c78",
-                "sha256:84ac6e140f2129266fd4c77a3d0903bbff0a761386079ea0cb99c8524695cac1"
-            ],
-            "version": "==1.6.0"
         },
         "singledispatch": {
             "hashes": [

@@ -9,8 +9,9 @@ Server for Zarkoix/Leaflet
 ```bash
 git clone git@github.com:Zarkoix/LeafletServer.git
 cd LeafletServer
-# use of a virtualenv is recommended when installing python packages
-pip3 install -r requirements.txt
+# set up virtualenv with
+pipenv --three
+pipenv install
 ```
 
 ### Set up Postgresql (dev)
