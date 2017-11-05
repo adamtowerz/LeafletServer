@@ -1,15 +1,19 @@
-"""Tests for graphiql endpoints"""
+"""Tests for Notebook Class"""
 
-from snapshottest import TestCase
+from snapshottest.django import TestCase
 from graphene.test import Client
 from LeafletServer.notebooks.schema import Query as notebook_query
 
-class APITestCase(TestCase):
-    """Tests API for Notebooks"""
-    def test_create_notebook(self):
-        """Testing the API for notebook creation"""
-        client = Client(notebook_query)
-        self.assertMatchSnapshot(client.execute(
+class NotebookTestCase(TestCase):
+
+    """Contains tests for Notebooks"""
+
+    def __init__(self):
+        """Initializes NotebookTestCase Class"""
+        TestCase.__init__(self)
+
+        self.client = Client(notebook_query)
+        self.notebook = self.client.execute(
             '''
             mutation {
                 createNotebook(
@@ -31,9 +35,27 @@ class APITestCase(TestCase):
                 }
             }
             '''
-        ))
+        )
+        self.notebook_id = self.notebook['id']
+        del self.notebook['id']
 
-    def test_create_test(self):
-        """Testing the API for notebook creation"""
-        client = Client(notebook_query)
-        self.assertMatchSnapshot(client.execute('''{ hey }'''))
+    def test_notebook(self):
+        """Queries fields of notebook
+
+        :returns: the result of querying for notebook information
+
+        """
+        return self.client.execute(
+            '''
+            query {
+                notebook(id : $id) {
+                    title
+                    color
+                    location
+                    favorite
+                    section
+                }
+            }
+            ''',
+            variable_values={'id', self.notebook_id}
+        )
