@@ -33,7 +33,7 @@ class NotebookTestCase(TestCase):
                         ok
                     }
             }''',
-            context_value={'user': User(username='test',password='meme')}
+            context_value={'user': self.user}
         )
         print(self.notebook)
         self.notebook_id = \
