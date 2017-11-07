@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -158,6 +159,11 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+if ('test' in sys.argv or 'test_coverage' in sys.argv or 'testserver' in
+    sys.argv):
+    #Covers regular testing and django-coverage
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 # Authentication backends for django-allauth
 

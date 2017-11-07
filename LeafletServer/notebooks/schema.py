@@ -212,7 +212,6 @@ class DeleteNotebook(graphene.Mutation):
 
         return DeleteNotebook(ok=delete) #pylint:disable=no-value-for-parameter
 
-
 class Mutation(object):
     """Section Mutations"""
     create_notebook = CreateNotebook.Field()
